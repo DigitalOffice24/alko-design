@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlKô — управляющая компания для отелей</title>
+<meta name="description" content="AlKô — управляющая компания для отелей, гостевых домов, апарт-отелей и санаториев: операционное управление, продажи и доходность, финансы, соответствие, люди, автоматизация.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AlKô — вариант E «Наследие гостеприимства»
+   Токены дизайн-системы
+   ============================================================ */
+:root{
+  /* --- цвет: тёмный благородный зелёный + матовая латунь + слоновая кость --- */
+  --bg:            oklch(24% 0.045 165);
+  --bg-deep:       oklch(20% 0.040 165);
+  --surface:       oklch(28% 0.050 165);
+  --surface-2:     oklch(31% 0.048 165);
+  --fg:            oklch(96% 0.010 85);
+  --muted:         oklch(81% 0.018 85);
+  --border:        oklch(45% 0.035 165);
+  --accent:        oklch(72% 0.100 80);   /* матовая латунь на тёмном */
+  --accent-soft:   oklch(72% 0.100 80 / 0.34);
+  --accent-hair:   oklch(72% 0.100 80 / 0.22);
+  --accent-deep:   oklch(45% 0.080 70);   /* латунь для светлых секций */
+
+  --ivory:         oklch(96% 0.010 85);
+  --ivory-2:       oklch(93% 0.014 85);
+  --ink:           oklch(24% 0.030 165);
+  --ink-muted:     oklch(41% 0.022 165);
+  --ink-border:    oklch(84% 0.018 85);
+
+  /* --- типографика --- */
+  --font-display: "Playfair Display", "Times New Roman", Georgia, serif;
+  --font-body:    "Golos Text", "Helvetica Neue", Arial, sans-serif;
+  --fs-hero:  clamp(2.5rem, 6.4vw, 5.25rem);
+  --fs-h2:    clamp(1.9rem, 3.6vw, 3rem);
+  --fs-h3:    clamp(1.25rem, 1.9vw, 1.6rem);
+  --fs-lead:  clamp(1.05rem, 1.5vw, 1.3rem);
+  --fs-body:  1rem;
+  --fs-sm:    0.9375rem;
+  --fs-kicker:0.75rem;
+  --track-kicker: 0.18em;
+
+  /* --- шкала отступов --- */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 18px;
+  --space-5: 28px; --space-6: 44px; --space-7: 68px; --space-8: 104px;
+  --space-9: 148px;
+
+  /* --- радиусы, линии, время --- */
+  --radius-sm: 2px;
+  --radius:    3px;
+  --radius-lg: 4px;
+  --hair: 1px;
+  --dur-fast: 160ms;
+  --dur:      280ms;
+  --dur-slow: 2600ms;
+  --ease: cubic-bezier(.22,.61,.36,1);
+
+  --wrap: 1240px;
+  --wrap-narrow: 860px;
+}
+
+/* ============================================================
+   База
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--font-body); font-size:var(--fs-body); line-height:1.6;
+  font-weight:400; overflow-x:hidden;
+}
+img,svg{max-width:100%}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:500; line-height:1.1; margin:0; letter-spacing:-0.01em}
+p{margin:0}
+ul{margin:0; padding:0; list-style:none}
+a{color:inherit; text-decoration:none}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.wrap{width:100%; max-width:var(--wrap); margin-inline:auto; padding-inline:var(--space-5)}
+.wrap-narrow{width:100%; max-width:var(--wrap-narrow); margin-inline:auto; padding-inline:var(--space-5)}
+.center{text-align:center}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ============================================================
+   Орнамент: латунные рулинги, фриз из арок, капитель-kicker
+   ============================================================ */
+.kicker{
+  font-family:var(--font-body); font-size:var(--fs-kicker); font-weight:500;
+  text-transform:uppercase; letter-spacing:var(--track-kicker);
+  color:var(--accent); margin:0 0 var(--space-4);
+}
+.section-light .kicker{color:var(--accent-deep)}
+.rule{height:var(--hair); background:var(--accent-soft); border:0; margin:0}
+.rule-short{width:56px; height:var(--hair); background:var(--accent); border:0; margin:var(--space-4) auto var(--space-5)}
+.section-light .rule-short{background:var(--accent-deep)}
+.frieze{display:block; width:100%; height:26px; color:var(--accent-soft)}
+.frieze-band{padding:var(--space-5) 0; background:var(--bg-deep)}
+.sprite{position:absolute; width:0; height:0; overflow:hidden}
+
+/* ============================================================
+   Логотип AlKô
+   ============================================================ */
+.logo{display:inline-flex; align-items:center; gap:var(--space-3); min-height:44px}
+.logo svg{display:block}
+.logo-descriptor{
+  font-size:var(--fs-kicker); text-transform:uppercase; letter-spacing:var(--track-kicker);
+  color:var(--muted); max-width:150px; line-height:1.4;
+}
+
+/* ============================================================
+   Шапка и навигация
+   ============================================================ */
+.header{
+  position:sticky; top:0; z-index:40; background:oklch(24% 0.045 165 / 0.94);
+  backdrop-filter:blur(6px); border-bottom:var(--hair) solid var(--accent-hair);
+}
+.header-inner{display:flex; align-items:center; justify-content:space-between; gap:var(--space-5); min-height:76px}
+.nav{display:flex; align-items:center; gap:var(--space-5)}
+.nav a{
+  font-size:var(--fs-sm); color:var(--muted); padding:12px 2px; min-height:44px;
+  display:inline-flex; align-items:center; transition:color var(--dur-fast) var(--ease);
+  border-bottom:var(--hair) solid transparent;
+}
+.nav a:hover{color:var(--fg); border-bottom-color:var(--accent)}
+.header-cta{display:flex; align-items:center; gap:var(--space-3)}
+.burger{
+  display:none; width:44px; height:44px; align-items:center; justify-content:center;
+  background:none; border:var(--hair) solid var(--accent-soft); border-radius:var(--radius-sm);
+  color:var(--accent); cursor:pointer;
+}
+.burger span{display:block; width:20px; height:1px; background:currentColor; position:relative}
+.burger span::before,.burger span::after{content:""; position:absolute; left:0; width:20px; height:1px; background:currentColor}
+.burger span::before{top:-6px} .burger span::after{top:6px}
+.mobile-nav{display:none; border-top:var(--hair) solid var(--accent-hair); background:var(--bg-deep)}
+.mobile-nav[data-open="true"]{display:block}
+.mobile-nav a{
+  display:flex; align-items:center; min-height:52px; padding:0 var(--space-5);
+  font-size:1.0625rem; color:var(--fg); border-bottom:var(--hair) solid var(--accent-hair);
+}
+.mobile-nav .btn{margin:var(--space-4) var(--space-5) var(--space-5); display:flex}
+
+/* ============================================================
+   Кнопки: primary (латунная заливка) / secondary (обводка) / ghost
+   ============================================================ */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2);
+  min-height:48px; padding:0 var(--space-5); border-radius:var(--radius);
+  font-family:var(--font-body); font-size:var(--fs-kicker); font-weight:600;
+  text-transform:uppercase; letter-spacing:0.12em; cursor:pointer;
+  border:var(--hair) solid transparent; background:none; color:inherit;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.btn-primary{background:var(--accent); color:oklch(22% 0.04 165); border-color:var(--accent)}
+.btn-primary:hover{background:transparent; color:var(--accent)}
+.btn-secondary{border-color:var(--accent); color:var(--accent)}
+.btn-secondary:hover{background:var(--accent); color:oklch(22% 0.04 165)}
+.btn-ghost{color:var(--muted); border-color:var(--border)}
+.btn-ghost:hover{color:var(--fg); border-color:var(--accent)}
+.section-light .btn-secondary{border-color:var(--accent-deep); color:var(--accent-deep)}
+.section-light .btn-secondary:hover{background:var(--accent-deep); color:var(--ivory)}
+
+/* ============================================================
+   Секции: чередование тёмных и светлых полос
+   ============================================================ */
+.section{padding:var(--space-8) 0}
+.section-light{background:var(--ivory); color:var(--ink)}
+.section-light .muted{color:var(--ink-muted)}
+.section-deep{background:var(--bg-deep)}
+.section-head{max-width:720px; margin-inline:auto}
+.section-head h2{font-size:var(--fs-h2)}
+.section-head p{margin-top:var(--space-4); color:var(--muted); font-size:var(--fs-lead)}
+.section-light .section-head p{color:var(--ink-muted)}
+.muted{color:var(--muted)}
+em.accent{font-style:italic; color:var(--accent)}
+.section-light em.accent{color:var(--accent-deep)}
+
+/* ============================================================
+   Hero + «тёплый свет» (единственная изюминка)
+   ============================================================ */
+.hero{position:relative; overflow:hidden; padding:var(--space-9) 0 var(--space-8); text-align:center}
+.hero-glow{
+  position:absolute; left:50%; top:14%; width:min(1100px,150vw); aspect-ratio:1/1;
+  transform:translate(-50%,-22%); border-radius:50%; pointer-events:none; opacity:0;
+  background:radial-gradient(circle, oklch(72% 0.10 80 / 0.30) 0%, oklch(72% 0.10 80 / 0.10) 38%, transparent 66%);
+  animation:ignite var(--dur-slow) var(--ease) 240ms forwards;
+}
+@keyframes ignite{ from{opacity:0} 55%{opacity:.72} to{opacity:1} }
+.hero-inner{position:relative; z-index:1}
+.hero h1{font-size:var(--fs-hero); letter-spacing:-0.02em}
+.hero-sub{margin:var(--space-5) auto 0; max-width:640px; font-size:var(--fs-lead); color:var(--muted)}
+.hero-actions{display:flex; gap:var(--space-4); justify-content:center; flex-wrap:wrap; margin-top:var(--space-6)}
+.hero-mark{display:flex; justify-content:center; margin-bottom:var(--space-5)}
+
+/* ============================================================
+   Плейсхолдеры «фото»: SVG-гравюра архитектуры
+   ============================================================ */
+.plate{border:var(--hair) solid var(--accent-hair); background:var(--bg-deep); padding:var(--space-4)}
+.section-light .plate{border-color:var(--ink-border); background:var(--ivory-2)}
+.plate svg{display:block; width:100%; height:auto; color:var(--accent)}
+.section-light .plate svg{color:var(--accent-deep)}
+.plate-caption{
+  margin-top:var(--space-3); font-size:var(--fs-kicker); text-transform:uppercase;
+  letter-spacing:var(--track-kicker); color:var(--muted);
+}
+.section-light .plate-caption{color:var(--ink-muted)}
+
+/* ============================================================
+   Список-«меню» с точечными лидерами
+   ============================================================ */
+.menu-list{display:grid; gap:var(--space-3); margin-top:var(--space-5)}
+.menu-row{display:flex; align-items:baseline; gap:var(--space-3); min-height:44px; padding-block:var(--space-2)}
+.menu-name{font-family:var(--font-display); font-size:1.25rem}
+.menu-dots{flex:1 1 auto; height:0; border-bottom:1px dotted var(--accent-soft); transform:translateY(-4px)}
+.section-light .menu-dots{border-bottom-color:var(--ink-border)}
+.menu-note{font-size:var(--fs-sm); color:var(--muted); white-space:nowrap}
+.section-light .menu-note{color:var(--ink-muted)}
+
+/* ============================================================
+   Карточка услуги (без теней, без левого бордера)
+   ============================================================ */
+.services-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-5); margin-top:var(--space-7)}
+.service{border:var(--hair) solid var(--border); padding:var(--space-6) var(--space-5); background:var(--surface)}
+.service:first-child{grid-column:1 / -1}
+.service-num{
+  font-family:var(--font-display); font-size:1.5rem; color:var(--accent);
+  display:block; margin-bottom:var(--space-3); letter-spacing:0.08em;
+}
+.service h3{font-size:var(--fs-h3); margin-bottom:var(--space-4)}
+.service ul{display:grid; gap:var(--space-3); border-top:var(--hair) solid var(--accent-hair); padding-top:var(--space-4)}
+.service li{position:relative; padding-left:var(--space-5); font-size:var(--fs-sm); color:var(--muted)}
+.service li::before{
+  content:""; position:absolute; left:0; top:.62em; width:8px; height:8px;
+  border-top:var(--hair) solid var(--accent); border-left:var(--hair) solid var(--accent);
+  transform:rotate(45deg);
+}
+
+/* ============================================================
+   Полоса «Автоматизация» — светлая секция
+   ============================================================ */
+.auto-band{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:var(--space-7); align-items:start}
+.auto-band h2{font-size:var(--fs-h2)}
+.auto-band p{margin-top:var(--space-4); color:var(--ink-muted); font-size:var(--fs-lead)}
+
+/* ============================================================
+   Шаги процесса
+   ============================================================ */
+.steps{display:grid; gap:0; margin-top:var(--space-7); border-top:var(--hair) solid var(--accent-hair)}
+.step{
+  display:grid; grid-template-columns:104px 1fr 1fr; gap:var(--space-5);
+  padding:var(--space-5) 0; border-bottom:var(--hair) solid var(--accent-hair); align-items:start;
+}
+.step-num{display:flex; align-items:center; gap:var(--space-3); color:var(--accent); font-family:var(--font-display); font-size:1.25rem}
+.step h3{font-size:1.375rem}
+.step p{color:var(--muted); font-size:var(--fs-sm)}
+
+/* ============================================================
+   Таблица моделей сотрудничества
+   ============================================================ */
+.models-wrap{margin-top:var(--space-7)}
+.models{width:100%; border-collapse:collapse; text-align:left}
+.models caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.models th,.models td{
+  padding:var(--space-4) var(--space-4); vertical-align:top;
+  border-bottom:var(--hair) solid var(--accent-hair); font-size:var(--fs-sm);
+}
+.models thead th{
+  font-family:var(--font-body); font-size:var(--fs-kicker); font-weight:600;
+  text-transform:uppercase; letter-spacing:var(--track-kicker); color:var(--accent);
+  border-bottom:var(--hair) solid var(--accent-soft); white-space:normal;
+}
+.models tbody th{
+  font-family:var(--font-display); font-weight:500; font-size:1.25rem; color:var(--fg);
+  width:210px; line-height:1.2;
+}
+.models td{color:var(--muted)}
+.models tbody tr:last-child th,.models tbody tr:last-child td{border-bottom:0}
+.cell-label{display:none}
+
+/* ============================================================
+   Почему AlKô / Команда
+   ============================================================ */
+.theses{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-6); margin-top:var(--space-7)}
+.thesis{border-top:var(--hair) solid var(--accent-soft); padding-top:var(--space-5)}
+.thesis h3{font-size:var(--fs-h3); margin-bottom:var(--space-3)}
+.thesis p{color:var(--muted); font-size:var(--fs-sm)}
+.team{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-6); margin-top:var(--space-7)}
+.member{border:var(--hair) solid var(--border); padding:var(--space-5); background:var(--surface)}
+.member h3{font-size:1.25rem; margin-top:var(--space-4)}
+.member p{color:var(--muted); font-size:var(--fs-sm); margin-top:var(--space-2)}
+
+/* ============================================================
+   Анкета объекта
+   ============================================================ */
+.form-shell{border:var(--hair) solid var(--accent-soft); padding:var(--space-7) var(--space-6); background:var(--surface); margin-top:var(--space-7)}
+.progress{display:flex; flex-wrap:wrap; gap:var(--space-5); border-bottom:var(--hair) solid var(--accent-hair); padding-bottom:var(--space-4); margin-bottom:var(--space-6)}
+.progress-item{
+  font-size:var(--fs-kicker); text-transform:uppercase; letter-spacing:var(--track-kicker);
+  color:oklch(66% 0.02 165); display:flex; align-items:center; gap:var(--space-2);
+}
+.progress-item[aria-current="step"]{color:var(--accent)}
+.progress-item b{font-family:var(--font-display); font-weight:500; font-size:1rem}
+.field{margin-bottom:var(--space-5)}
+.field-row{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-5)}
+label.label{
+  display:block; font-size:var(--fs-kicker); text-transform:uppercase;
+  letter-spacing:var(--track-kicker); color:var(--accent); margin-bottom:var(--space-3);
+}
+.input,.select{
+  width:100%; min-height:48px; padding:var(--space-3) 0; color:var(--fg);
+  background:transparent; border:0; border-bottom:var(--hair) solid var(--border);
+  font-family:var(--font-body); font-size:1.0625rem; border-radius:0;
+  transition:border-color var(--dur) var(--ease);
+}
+.select{appearance:none; padding-right:28px; background-image:linear-gradient(transparent,transparent)}
+.select-shell{position:relative}
+.select-shell::after{
+  content:""; position:absolute; right:6px; top:22px; width:8px; height:8px;
+  border-right:var(--hair) solid var(--accent); border-bottom:var(--hair) solid var(--accent);
+  transform:rotate(45deg); pointer-events:none;
+}
+.input:focus,.select:focus{outline:none; border-bottom-color:var(--accent)}
+.input::placeholder{color:oklch(70% 0.02 165)}
+.helper{margin-top:var(--space-2); font-size:var(--fs-sm); color:var(--muted)}
+.chips{display:flex; flex-wrap:wrap; gap:var(--space-3)}
+.chip{position:relative; display:inline-flex}
+.chip input{position:absolute; inset:0; opacity:0; cursor:pointer; margin:0}
+.chip span{
+  display:inline-flex; align-items:center; min-height:44px; padding:0 var(--space-4);
+  border:var(--hair) solid var(--border); border-radius:var(--radius-sm);
+  font-size:var(--fs-sm); color:var(--muted); transition:all var(--dur-fast) var(--ease);
+}
+.chip input:checked + span{border-color:var(--accent); color:oklch(22% 0.04 165); background:var(--accent)}
+.chip input:focus-visible + span{outline:2px solid var(--accent); outline-offset:3px}
+.form-foot{display:flex; align-items:center; gap:var(--space-5); flex-wrap:wrap; border-top:var(--hair) solid var(--accent-hair); padding-top:var(--space-5); margin-top:var(--space-6)}
+.form-note{font-size:var(--fs-sm); color:var(--accent); display:none}
+.form-note[data-visible="true"]{display:block}
+
+/* ============================================================
+   Контакты и футер
+   ============================================================ */
+.contacts{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-6); margin-top:var(--space-7); border-top:var(--hair) solid var(--accent-soft); padding-top:var(--space-6)}
+.contact-item .kicker{margin-bottom:var(--space-3)}
+.contact-item p{font-family:var(--font-display); font-size:1.375rem}
+.footer{background:var(--bg-deep); border-top:var(--hair) solid var(--accent-hair); padding:var(--space-7) 0 var(--space-6)}
+.footer-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:var(--space-6); align-items:start}
+.footer-nav{display:flex; flex-wrap:wrap; gap:var(--space-4)}
+.footer-nav a{font-size:var(--fs-sm); color:var(--muted); min-height:44px; display:inline-flex; align-items:center}
+.footer-nav a:hover{color:var(--accent)}
+.footer-bottom{display:flex; justify-content:space-between; gap:var(--space-4); flex-wrap:wrap; margin-top:var(--space-6); padding-top:var(--space-5); border-top:var(--hair) solid var(--accent-hair); font-size:var(--fs-sm); color:var(--muted)}
+
+/* ============================================================
+   Reveal on scroll
+   ============================================================ */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity 640ms var(--ease), transform 640ms var(--ease)}
+.reveal.is-in{opacity:1; transform:none}
+
+/* ============================================================
+   Адаптив
+   ============================================================ */
+@media (max-width:1080px){
+  .services-grid{grid-template-columns:1fr}
+  .service:first-child{grid-column:auto}
+  .auto-band{grid-template-columns:1fr; gap:var(--space-6)}
+  .theses{grid-template-columns:1fr; gap:var(--space-5)}
+  .step{grid-template-columns:88px 1fr; }
+  .step p{grid-column:2}
+}
+@media (max-width:860px){
+  .nav,.header-cta .btn{display:none}
+  .burger{display:inline-flex}
+  .section{padding:var(--space-7) 0}
+  .hero{padding:var(--space-8) 0 var(--space-7)}
+  .team{grid-template-columns:1fr}
+  .contacts{grid-template-columns:1fr; gap:var(--space-5)}
+  .footer-grid{grid-template-columns:1fr}
+  .field-row{grid-template-columns:1fr}
+  .form-shell{padding:var(--space-5) var(--space-4)}
+
+  /* таблица моделей → стек карточек */
+  .models,.models tbody,.models tr,.models th,.models td{display:block; width:auto}
+  .models thead{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+  .models tbody tr{border:var(--hair) solid var(--border); padding:var(--space-5) var(--space-4); margin-bottom:var(--space-5); background:var(--surface)}
+  .models tbody th{width:auto; border-bottom:var(--hair) solid var(--accent-soft); padding:0 0 var(--space-3); font-size:1.375rem}
+  .models tbody td{border-bottom:var(--hair) solid var(--accent-hair); padding:var(--space-4) 0}
+  .models tbody tr td:last-child{border-bottom:0; padding-bottom:0}
+  .cell-label{
+    display:block; font-size:var(--fs-kicker); text-transform:uppercase;
+    letter-spacing:var(--track-kicker); color:var(--accent); margin-bottom:var(--space-2);
+  }
+}
+@media (max-width:520px){
+  .logo-descriptor{display:none}
+  .menu-row{flex-wrap:wrap}
+  .menu-dots{min-width:24px}
+  .menu-note{white-space:normal}
+  .step{grid-template-columns:1fr; gap:var(--space-3)}
+  .step p{grid-column:auto}
+  .hero-actions .btn{width:100%}
+  .form-foot .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important}
+  .hero-glow{animation:none; opacity:1}
+  .reveal{opacity:1; transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG-сприт: мотив арки/кровли ô -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="arch-frieze" patternUnits="userSpaceOnUse" width="44" height="26">
+      <path d="M2 25 L2 15 A 20 18 0 0 1 42 15 L42 25" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M0 25 L44 25" fill="none" stroke="currentColor" stroke-width="1"/>
+    </pattern>
+    <symbol id="arch-mark" viewBox="0 0 40 26">
+      <path d="M1 25 L1 14 A 19 17 0 0 1 39 14 L39 25" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M5 20 L5 12.5 A 15 13 0 0 1 35 12.5 L35 20" fill="none" stroke="currentColor" stroke-width="1" opacity=".55"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================ 1. ШАПКА ============================ -->
+<header class="header" data-od-id="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="#hero" data-od-id="logo-header" aria-label="AlKô — управляющая компания для отелей">
+      <svg width="88" height="44" viewBox="0 0 88 44" role="img" aria-label="AlKô">
+        <title>AlKô</title>
+        <!-- циркумфлекс как кровля с тонким карнизом -->
+        <g fill="none" stroke="oklch(72% 0.10 80)" stroke-width="1.4" stroke-linecap="square">
+          <path d="M57 13 L66.5 4 L76 13"/>
+          <path d="M54.5 15.5 L78.5 15.5"/>
+        </g>
+        <text x="0" y="38" font-family="Playfair Display, Georgia, serif" font-size="34" font-weight="500" fill="oklch(96% 0.01 85)">AlK</text>
+        <text x="57" y="38" font-family="Playfair Display, Georgia, serif" font-size="34" font-weight="500" fill="oklch(72% 0.10 80)">o</text>
+      </svg>
+      <span class="logo-descriptor">управляющая компания для отелей</span>
+    </a>
+
+    <nav class="nav" aria-label="Основная навигация" data-od-id="nav-desktop">
+      <a href="#services" data-od-id="nav-services">Услуги</a>
+      <a href="#process" data-od-id="nav-process">Как работаем</a>
+      <a href="#models" data-od-id="nav-models">Модели</a>
+      <a href="#why" data-od-id="nav-why">Почему AlKô</a>
+      <a href="#brief" data-od-id="nav-brief">Анкета</a>
+    </nav>
+
+    <div class="header-cta">
+      <a class="btn btn-secondary" href="#contacts" data-od-id="header-discuss">Обсудить объект</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Меню" data-od-id="burger-toggle"><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" data-open="false" data-od-id="nav-mobile">
+    <a href="#services" data-od-id="mnav-services">Услуги</a>
+    <a href="#process" data-od-id="mnav-process">Как работаем</a>
+    <a href="#models" data-od-id="mnav-models">Модели</a>
+    <a href="#why" data-od-id="mnav-why">Почему AlKô</a>
+    <a href="#brief" data-od-id="mnav-brief">Анкета</a>
+    <a class="btn btn-secondary" href="#contacts" data-od-id="mnav-discuss">Обсудить объект</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================ 2. HERO ============================ -->
+<section class="hero" id="hero" data-od-id="section-hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-mark" aria-hidden="true">
+      <svg width="52" height="34" viewBox="0 0 40 26" style="color:oklch(72% 0.10 80)"><use href="#arch-mark"/></svg>
+    </div>
+    <p class="kicker" data-od-id="hero-kicker">Управляющая компания для отелей</p>
+    <h1 data-od-id="hero-title">Ваш отель — под <em class="accent">профессиональным</em> управлением</h1>
+    <p class="hero-sub" data-od-id="hero-subtitle">Прозрачно, с цифрами, без вашей ежедневной вовлечённости. Мы берём операционку, продажи и отчётность на себя — собственник принимает решения, а не тушит пожары.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#brief" data-od-id="hero-cta-primary">Заполнить анкету объекта</a>
+      <a class="btn btn-secondary" href="#contacts" data-od-id="hero-cta-secondary">Обсудить объект</a>
+    </div>
+  </div>
+</section>
+
+<div class="frieze-band" aria-hidden="true" data-od-id="frieze-hero">
+  <div class="wrap">
+    <svg class="frieze" preserveAspectRatio="none"><rect width="100%" height="26" fill="url(#arch-frieze)"/></svg>
+  </div>
+</div>
+
+<!-- ============================ 3. ДЛЯ КАКИХ ОБЪЕКТОВ ============================ -->
+<section class="section section-light" id="objects" data-od-id="section-objects">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="kicker">С чем мы работаем</p>
+      <h2 data-od-id="objects-title">Для каких <em class="accent">объектов</em></h2>
+      <hr class="rule-short">
+      <p>Номерной фонд от 20 до 300 номеров — это рамка формата, в которой наша модель управления работает предсказуемо.</p>
+    </div>
+
+    <div class="wrap-narrow" style="padding-inline:0">
+      <ul class="menu-list reveal" data-od-id="objects-list">
+        <li class="menu-row" data-od-id="object-hotel">
+          <span class="menu-name">Отели</span>
+          <span class="menu-dots" aria-hidden="true"></span>
+          <span class="menu-note">городские и курортные</span>
+        </li>
+        <li class="menu-row" data-od-id="object-guesthouse">
+          <span class="menu-name">Гостевые дома</span>
+          <span class="menu-dots" aria-hidden="true"></span>
+          <span class="menu-note">малый формат, собственник рядом</span>
+        </li>
+        <li class="menu-row" data-od-id="object-apart">
+          <span class="menu-name">Апарт-отели с множественными собственниками</span>
+          <span class="menu-dots" aria-hidden="true"></span>
+          <span class="menu-note">общая программа и отчётность</span>
+        </li>
+        <li class="menu-row" data-od-id="object-sanatorium">
+          <span class="menu-name">Санатории</span>
+          <span class="menu-dots" aria-hidden="true"></span>
+          <span class="menu-note">с лечебной и сервисной частью</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="plate reveal" style="margin-top:44px" data-od-id="plate-objects">
+      <svg viewBox="0 0 1200 250" role="img" aria-label="Линейная гравюра: фасад здания с арочными окнами">
+        <g fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M40 230 L40 92 L600 40 L1160 92 L1160 230"/>
+          <path d="M40 230 L1160 230 M20 240 L1180 240"/>
+          <path d="M40 118 L1160 118 M40 168 L1160 168"/>
+          <path d="M600 40 L600 230"/>
+          <path d="M520 230 L520 176 A 80 66 0 0 1 680 176 L680 230"/>
+          <path d="M545 230 L545 180 A 55 46 0 0 1 655 180 L655 230"/>
+        </g>
+        <g fill="none" stroke="currentColor" stroke-width="1" opacity=".72">
+          <path d="M100 158 L100 136 A 18 16 0 0 1 136 136 L136 158 Z"/>
+          <path d="M180 156 L180 134 A 18 16 0 0 1 216 134 L216 156 Z"/>
+          <path d="M260 154 L260 132 A 18 16 0 0 1 296 132 L296 154 Z"/>
+          <path d="M340 152 L340 130 A 18 16 0 0 1 376 130 L376 152 Z"/>
+          <path d="M420 150 L420 128 A 18 16 0 0 1 456 128 L456 150 Z"/>
+          <path d="M744 150 L744 128 A 18 16 0 0 1 780 128 L780 150 Z"/>
+          <path d="M824 152 L824 130 A 18 16 0 0 1 860 130 L860 152 Z"/>
+          <path d="M904 154 L904 132 A 18 16 0 0 1 940 132 L940 154 Z"/>
+          <path d="M984 156 L984 134 A 18 16 0 0 1 1020 134 L1020 156 Z"/>
+          <path d="M1064 158 L1064 136 A 18 16 0 0 1 1100 136 L1100 158 Z"/>
+        </g>
+        <g fill="none" stroke="currentColor" stroke-width="1" opacity=".45">
+          <path d="M100 200 L136 200 M180 200 L216 200 M260 200 L296 200 M340 200 L376 200 M420 200 L456 200"/>
+          <path d="M744 200 L780 200 M824 200 L860 200 M904 200 L940 200 M984 200 L1020 200 M1064 200 L1100 200"/>
+        </g>
+      </svg>
+      <p class="plate-caption">фото: архитектура объекта</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. УСЛУГИ ============================ -->
+<section class="section" id="services" data-od-id="section-services">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="kicker">Услуги</p>
+      <h2 data-od-id="services-title">Пять направлений <em class="accent">управления</em></h2>
+      <hr class="rule-short">
+      <p>Берём объект целиком или отдельные направления — состав фиксируется в договоре после аудита.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service reveal" data-od-id="service-operations">
+        <span class="service-num">I</span>
+        <h3>Операционное управление</h3>
+        <ul>
+          <li>Управление объектом: организация ежедневной работы</li>
+          <li>Стандарты для каждого отдела</li>
+          <li>Контроль состояния номерного фонда с чек-листами</li>
+          <li>KPI и контроль показателей отделов</li>
+          <li>Инвентаризация</li>
+        </ul>
+      </article>
+
+      <article class="service reveal" data-od-id="service-sales">
+        <span class="service-num">II</span>
+        <h3>Продажи и доходность</h3>
+        <ul>
+          <li>Работа с OTA: договоры, кабинеты, интеграция с шахматкой</li>
+          <li>Revenue Management и динамическое ценообразование</li>
+          <li>Развитие прямых продаж</li>
+        </ul>
+      </article>
+
+      <article class="service reveal" data-od-id="service-finance">
+        <span class="service-num">III</span>
+        <h3>Финансы и закуп</h3>
+        <ul>
+          <li>Финансы и отчётность: акты сверок, отчёты агентов, бюджет, финотчётность</li>
+          <li>Закуп и поиск поставщиков</li>
+          <li>Ежемесячный отчёт собственнику</li>
+        </ul>
+      </article>
+
+      <article class="service reveal" data-od-id="service-compliance">
+        <span class="service-num">IV</span>
+        <h3>Соответствие и статус</h3>
+        <ul>
+          <li>Классификация и звёздность: подготовка и получение</li>
+          <li>Прохождение самооценки</li>
+          <li>Паспорт безопасности: разработка и сопровождение</li>
+          <li>Соглашения с УВМ</li>
+        </ul>
+      </article>
+
+      <article class="service reveal" data-od-id="service-people">
+        <span class="service-num">V</span>
+        <h3>Люди</h3>
+        <ul>
+          <li>Подбор персонала</li>
+          <li>Обучение персонала</li>
+          <li>Менторство собственника: сопровождение собственника или должностного лица</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4b. ПОЛОСА «АВТОМАТИЗАЦИЯ» ============================ -->
+<section class="section section-light" id="automation" data-od-id="section-automation">
+  <div class="wrap auto-band">
+    <div class="reveal">
+      <p class="kicker">Плюс к пакету</p>
+      <h2 data-od-id="automation-title">Автоматизация</h2>
+      <hr class="rule" style="margin:28px 0 0; background:var(--ink-border)">
+      <p>Цифровой контур поверх операционки: задачи, чек-листы и отчёты живут в системе, а не в переписке. Подключается к любой из моделей сотрудничества.</p>
+    </div>
+    <div class="reveal">
+      <ul class="menu-list" style="margin-top:0" data-od-id="automation-list">
+        <li class="menu-row" data-od-id="automation-crm">
+          <span class="menu-name">CRM для учёта объекта и задач по отделам</span>
+          <span class="menu-dots" aria-hidden="true"></span>
+          <span class="menu-note">единая картина</span>
+        </li>
+        <li class="menu-row" data-od-id="automation-concierge">
+          <span class="menu-name">AI-консьерж для гостей</span>
+          <span class="menu-dots" aria-hidden="true"></span>
+          <span class="menu-note">ответы гостям</span>
+        </li>
+        <li class="menu-row" data-od-id="automation-bots">
+          <span class="menu-name">Боты для рутинных процессов: чек-листы номерного фонда, отчёты агентов</span>
+          <span class="menu-dots" aria-hidden="true"></span>
+          <span class="menu-note">рутина без людей</span>
+        </li>
+      </ul>
+      <div class="plate" style="margin-top:28px" data-od-id="plate-automation">
+        <svg viewBox="0 0 900 200" role="img" aria-label="Линейная гравюра: лестница и арочный проём вестибюля">
+          <g fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M30 180 L870 180"/>
+            <path d="M120 180 L120 60 A 120 96 0 0 1 360 60 L360 180"/>
+            <path d="M150 180 L150 70 A 90 74 0 0 1 330 70 L330 180"/>
+            <path d="M540 180 L540 176 L580 176 L580 160 L620 160 L620 144 L660 144 L660 128 L700 128 L700 112 L740 112 L740 96 L780 96"/>
+            <path d="M540 152 L580 152 L580 136 L620 136 L620 120 L660 120 L660 104 L700 104 L700 88 L740 88 L740 72 L780 72"/>
+            <path d="M780 96 L780 40 M540 176 L540 120"/>
+          </g>
+          <g fill="none" stroke="currentColor" stroke-width="1" opacity=".5">
+            <path d="M240 180 L240 70 M180 180 L180 96 M300 180 L300 96"/>
+          </g>
+        </svg>
+        <p class="plate-caption">фото: архитектура объекта</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="frieze-band" aria-hidden="true" data-od-id="frieze-process">
+  <div class="wrap">
+    <svg class="frieze" preserveAspectRatio="none"><rect width="100%" height="26" fill="url(#arch-frieze)"/></svg>
+  </div>
+</div>
+
+<!-- ============================ 5. КАК МЫ РАБОТАЕМ ============================ -->
+<section class="section" id="process" data-od-id="section-process">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="kicker">Как мы работаем</p>
+      <h2 data-od-id="process-title">Шесть шагов от анкеты до <em class="accent">отчёта</em></h2>
+      <hr class="rule-short">
+      <p>Каждый шаг заканчивается артефактом, который остаётся у собственника.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step reveal" data-od-id="step-brief">
+        <div class="step-num"><svg width="26" height="17" viewBox="0 0 40 26" aria-hidden="true"><use href="#arch-mark"/></svg> I</div>
+        <h3>Анкета объекта</h3>
+        <p>Собственник заполняет короткую форму об объекте. Мы приходим на разговор уже с контекстом, а не с чистого листа.</p>
+      </article>
+      <article class="step reveal" data-od-id="step-audit">
+        <div class="step-num"><svg width="26" height="17" viewBox="0 0 40 26" aria-hidden="true"><use href="#arch-mark"/></svg> II</div>
+        <h3>Аудит</h3>
+        <p>Смотрим операционку, продажи, финансы и документы объекта. Собственник получает картину «как есть» без смягчений.</p>
+      </article>
+      <article class="step reveal" data-od-id="step-offer">
+        <div class="step-num"><svg width="26" height="17" viewBox="0 0 40 26" aria-hidden="true"><use href="#arch-mark"/></svg> III</div>
+        <h3>Предложение</h3>
+        <p>Предлагаем модель сотрудничества, состав работ и приоритеты первых месяцев. Собственник видит, за что отвечаем мы.</p>
+      </article>
+      <article class="step reveal" data-od-id="step-contract">
+        <div class="step-num"><svg width="26" height="17" viewBox="0 0 40 26" aria-hidden="true"><use href="#arch-mark"/></svg> IV</div>
+        <h3>Договор</h3>
+        <p>Фиксируем зону ответственности, формат отчётности и порядок расчёта вознаграждения. Все договорённости письменные.</p>
+      </article>
+      <article class="step reveal" data-od-id="step-launch">
+        <div class="step-num"><svg width="26" height="17" viewBox="0 0 40 26" aria-hidden="true"><use href="#arch-mark"/></svg> V</div>
+        <h3>Запуск</h3>
+        <p>Вводим стандарты и чек-листы, приводим в порядок кабинеты OTA, разворачиваем CRM и задачи по отделам. Команда входит в работу.</p>
+      </article>
+      <article class="step reveal" data-od-id="step-report">
+        <div class="step-num"><svg width="26" height="17" viewBox="0 0 40 26" aria-hidden="true"><use href="#arch-mark"/></svg> VI</div>
+        <h3>Ежемесячный отчёт</h3>
+        <p>Собственник получает цифры и статус каждого направления в одном документе — без необходимости вникать в ежедневную операционку.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 6. МОДЕЛИ СОТРУДНИЧЕСТВА ============================ -->
+<section class="section section-deep" id="models" data-od-id="section-models">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="kicker">Модели сотрудничества</p>
+      <h2 data-od-id="models-title">Три способа <em class="accent">работать вместе</em></h2>
+      <hr class="rule-short">
+      <p>Конкретика, которая зависит от объекта, честно помечена: определяется по итогам аудита.</p>
+    </div>
+
+    <div class="models-wrap reveal">
+      <table class="models" data-od-id="models-table">
+        <caption>Сравнение моделей сотрудничества AlKô</caption>
+        <thead>
+          <tr>
+            <th scope="col">Модель</th>
+            <th scope="col">Кому подходит</th>
+            <th scope="col">Что входит</th>
+            <th scope="col">Как считается вознаграждение</th>
+            <th scope="col">Отчётность</th>
+            <th scope="col">Вовлечённость собственника</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-od-id="model-full">
+            <th scope="row">Полное управление</th>
+            <td><span class="cell-label">Кому подходит</span>Собственнику, который хочет выйти из ежедневной операционки полностью и получать результат отчётом.</td>
+            <td><span class="cell-label">Что входит</span>Все пять направлений: операционное управление, продажи и доходность, финансы и закуп, соответствие и статус, люди.</td>
+            <td><span class="cell-label">Как считается вознаграждение</span>Фиксированное вознаграждение за управление; размер определяется по итогам аудита.</td>
+            <td><span class="cell-label">Отчётность</span>Ежемесячный отчёт собственнику плюс доступ к CRM объекта в любой момент.</td>
+            <td><span class="cell-label">Вовлечённость собственника</span>Минимальная: приём отчёта и решения уровня собственника.</td>
+          </tr>
+          <tr data-od-id="model-functions">
+            <th scope="row">Отдельные функции</th>
+            <td><span class="cell-label">Кому подходит</span>Объектам со своей командой, у которых проседает конкретное направление.</td>
+            <td><span class="cell-label">Что входит</span>Выбранные блоки — например продажи и доходность или соответствие и статус; остальное остаётся у команды объекта.</td>
+            <td><span class="cell-label">Как считается вознаграждение</span>По выбранному объёму работ; состав и стоимость определяются по итогам аудита.</td>
+            <td><span class="cell-label">Отчётность</span>Отчёт по тем направлениям, которые ведём мы, в общем ежемесячном формате.</td>
+            <td><span class="cell-label">Вовлечённость собственника</span>Частичная: собственник или его управляющий держат остальные направления.</td>
+          </tr>
+          <tr data-od-id="model-partner">
+            <th scope="row">Партнёрская модель</th>
+            <td><span class="cell-label">Кому подходит</span>Собственнику, который готов разделить результат и привязать оплату управления к показателям объекта.</td>
+            <td><span class="cell-label">Что входит</span>Объём собирается под задачу объекта — от отдельных функций до полного управления.</td>
+            <td><span class="cell-label">Как считается вознаграждение</span>% от прибыли или от оборота; база расчёта и порядок определяются по итогам аудита.</td>
+            <td><span class="cell-label">Отчётность</span>Ежемесячный отчёт собственнику с расшифровкой базы расчёта вознаграждения.</td>
+            <td><span class="cell-label">Вовлечённость собственника</span>По договорённости; зона решений собственника фиксируется в договоре.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 7. ПОЧЕМУ AlKô ============================ -->
+<section class="section section-light" id="why" data-od-id="section-why">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="kicker">Почему AlKô</p>
+      <h2 data-od-id="why-title">Три вещи, на которых <em class="accent">держится</em> управление</h2>
+      <hr class="rule-short">
+    </div>
+    <div class="theses">
+      <article class="thesis reveal" data-od-id="why-expertise">
+        <h3>Отельер-практик плюс автоматизация</h3>
+        <p>Операционная экспертиза человека, который вёл объекты руками, усиленная CRM, ботами и AI-консьержем. Не консультации в презентации, а работающий контур.</p>
+      </article>
+      <article class="thesis reveal" data-od-id="why-reporting">
+        <h3>Прозрачная отчётность</h3>
+        <p>Собственник видит цифры каждый месяц: что происходит с загрузкой, доходом, расходами и статусом каждого направления. Без «всё хорошо» вместо данных.</p>
+      </article>
+      <article class="thesis reveal" data-od-id="why-direct">
+        <h3>Прямые продажи вместо зависимости от OTA</h3>
+        <p>OTA остаются каналом, но не единственным. Развиваем собственный канал бронирования, чтобы объект не зависел от чужих правил и комиссии.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 8. КОМАНДА ============================ -->
+<section class="section" id="team" data-od-id="section-team">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="kicker">Команда</p>
+      <h2 data-od-id="team-title">Два <em class="accent">сооснователя</em></h2>
+      <hr class="rule-short">
+    </div>
+    <div class="team">
+      <article class="member reveal" data-od-id="member-operations">
+        <div class="plate" style="border:0; padding:0">
+          <svg viewBox="0 0 400 220" role="img" aria-label="Геометрический плейсхолдер портрета">
+            <rect x="1" y="1" width="398" height="218" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <path d="M200 60 L200 44" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M140 190 L140 130 A 60 54 0 0 1 260 130 L260 190" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M165 190 L165 138 A 35 32 0 0 1 235 138 L235 190" fill="none" stroke="currentColor" stroke-width="1" opacity=".55"/>
+            <path d="M60 190 L340 190" fill="none" stroke="currentColor" stroke-width="1"/>
+          </svg>
+          <p class="plate-caption">фото: портрет — плейсхолдер</p>
+        </div>
+        <h3>Сооснователь</h3>
+        <p>Операционное управление и отельная экспертиза: стандарты, номерной фонд, персонал, соответствие и статус объекта.</p>
+      </article>
+      <article class="member reveal" data-od-id="member-sales">
+        <div class="plate" style="border:0; padding:0">
+          <svg viewBox="0 0 400 220" role="img" aria-label="Геометрический плейсхолдер портрета">
+            <rect x="1" y="1" width="398" height="218" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/>
+            <path d="M200 60 L200 44" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M140 190 L140 132 L200 96 L260 132 L260 190" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M170 190 L170 142 L200 122 L230 142 L230 190" fill="none" stroke="currentColor" stroke-width="1" opacity=".55"/>
+            <path d="M60 190 L340 190" fill="none" stroke="currentColor" stroke-width="1"/>
+          </svg>
+          <p class="plate-caption">фото: портрет — плейсхолдер</p>
+        </div>
+        <h3>Сооснователь</h3>
+        <p>Продажи, маркетинг и автоматизация: каналы бронирования, доходность, CRM, боты и AI-консьерж для гостей.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 9. АНКЕТА ОБЪЕКТА ============================ -->
+<section class="section section-deep" id="brief" data-od-id="section-brief">
+  <div class="wrap-narrow">
+    <div class="section-head center reveal">
+      <p class="kicker">Анкета объекта</p>
+      <h2 data-od-id="brief-title">Расскажите об <em class="accent">объекте</em></h2>
+      <hr class="rule-short">
+      <p>Первый шаг занимает пару минут и задаёт контекст для аудита.</p>
+    </div>
+
+    <div class="form-shell reveal">
+      <div class="progress" data-od-id="brief-progress">
+        <span class="progress-item" aria-current="step" data-od-id="progress-step-1"><b>1</b> Об объекте</span>
+        <span class="progress-item" data-od-id="progress-step-2"><b>2</b> Показатели</span>
+        <span class="progress-item" data-od-id="progress-step-3"><b>3</b> Контакты</span>
+      </div>
+
+      <form id="brief-form" data-od-id="brief-form" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label class="label" for="object-type" data-od-id="label-object-type">Тип объекта</label>
+            <div class="select-shell">
+              <select class="select" id="object-type" name="object-type" data-od-id="field-object-type">
+                <option value="">Выберите тип</option>
+                <option value="hotel">Отель</option>
+                <option value="guesthouse">Гостевой дом</option>
+                <option value="apart">Апарт-отель</option>
+                <option value="sanatorium">Санаторий</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="city" data-od-id="label-city">Город</label>
+            <input class="input" id="city" name="city" type="text" placeholder="Например: Сочи" autocomplete="address-level2" data-od-id="field-city">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="label" for="rooms" data-od-id="label-rooms">Номерной фонд</label>
+            <input class="input" id="rooms" name="rooms" type="number" inputmode="numeric" min="1" placeholder="Количество номеров" data-od-id="field-rooms">
+            <p class="helper">Мы работаем с фондом от 20 до 300 номеров.</p>
+          </div>
+          <div class="field">
+            <label class="label" for="stars" data-od-id="label-stars">Звёздность</label>
+            <div class="select-shell">
+              <select class="select" id="stars" name="stars" data-od-id="field-stars">
+                <option value="">Выберите вариант</option>
+                <option value="none">Без категории</option>
+                <option value="1">1 звезда</option>
+                <option value="2">2 звезды</option>
+                <option value="3">3 звезды</option>
+                <option value="4">4 звезды</option>
+                <option value="5">5 звёзд</option>
+                <option value="in-progress">В процессе классификации</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="label" id="manager-label" data-od-id="label-manager">Кто управляет сейчас</span>
+          <div class="chips" role="radiogroup" aria-labelledby="manager-label" data-od-id="field-manager">
+            <label class="chip" data-od-id="chip-owner"><input type="radio" name="manager" value="owner"><span>Собственник сам</span></label>
+            <label class="chip" data-od-id="chip-hired"><input type="radio" name="manager" value="hired"><span>Наёмный управляющий</span></label>
+            <label class="chip" data-od-id="chip-other-mc"><input type="radio" name="manager" value="other-mc"><span>Другая УК</span></label>
+            <label class="chip" data-od-id="chip-not-launched"><input type="radio" name="manager" value="not-launched"><span>Объект ещё не запущен</span></label>
+          </div>
+        </div>
+
+        <div class="form-foot">
+          <button class="btn btn-primary" type="submit" data-od-id="brief-submit">Продолжить</button>
+          <p class="form-note" id="brief-note" data-visible="false" role="status" data-od-id="brief-note">Превью анкеты — отправка будет подключена.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 10. КОНТАКТЫ ============================ -->
+<section class="section" id="contacts" data-od-id="section-contacts">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="kicker">Контакты</p>
+      <h2 data-od-id="contacts-title">Обсудить <em class="accent">объект</em></h2>
+      <hr class="rule-short">
+      <p>Компания молодая, публичные контакты уточняются. Пока самый быстрый путь — анкета объекта: она сразу даёт нам контекст для разговора.</p>
+      <div class="hero-actions" style="margin-top:28px">
+        <a class="btn btn-primary" href="#brief" data-od-id="contacts-cta">Заполнить анкету объекта</a>
+      </div>
+    </div>
+
+    <div class="contacts reveal">
+      <div class="contact-item" data-od-id="contact-phone">
+        <p class="kicker">Телефон</p>
+        <p>Уточняется</p>
+      </div>
+      <div class="contact-item" data-od-id="contact-email">
+        <p class="kicker">Почта</p>
+        <p>Уточняется</p>
+      </div>
+      <div class="contact-item" data-od-id="contact-geo">
+        <p class="kicker">География</p>
+        <p>Уточняется</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ ФУТЕР ============================ -->
+<footer class="footer" data-od-id="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="#hero" data-od-id="logo-footer" aria-label="AlKô">
+          <svg width="88" height="44" viewBox="0 0 88 44" role="img" aria-label="AlKô">
+            <title>AlKô</title>
+            <g fill="none" stroke="oklch(72% 0.10 80)" stroke-width="1.4" stroke-linecap="square">
+              <path d="M57 13 L66.5 4 L76 13"/>
+              <path d="M54.5 15.5 L78.5 15.5"/>
+            </g>
+            <text x="0" y="38" font-family="Playfair Display, Georgia, serif" font-size="34" font-weight="500" fill="oklch(96% 0.01 85)">AlK</text>
+            <text x="57" y="38" font-family="Playfair Display, Georgia, serif" font-size="34" font-weight="500" fill="oklch(72% 0.10 80)">o</text>
+          </svg>
+        </a>
+        <p class="muted" style="margin-top:18px; max-width:360px">Управляющая компания для отелей</p>
+        <svg class="frieze" preserveAspectRatio="none" style="margin-top:28px; max-width:360px" aria-hidden="true"><rect width="100%" height="26" fill="url(#arch-frieze)"/></svg>
+      </div>
+      <nav class="footer-nav" aria-label="Навигация в футере" data-od-id="nav-footer">
+        <a href="#services" data-od-id="fnav-services">Услуги</a>
+        <a href="#process" data-od-id="fnav-process">Как работаем</a>
+        <a href="#models" data-od-id="fnav-models">Модели</a>
+        <a href="#why" data-od-id="fnav-why">Почему AlKô</a>
+        <a href="#brief" data-od-id="fnav-brief">Анкета</a>
+        <a href="#contacts" data-od-id="fnav-contacts">Контакты</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AlKô</span>
+      <span>Управляющая компания для отелей</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- мобильное меню --- */
+  var burger = document.querySelector(".burger");
+  var mnav = document.getElementById("mobile-nav");
+  function closeNav(){
+    if(!mnav || !burger) return;
+    mnav.setAttribute("data-open","false");
+    burger.setAttribute("aria-expanded","false");
+  }
+  if(burger && mnav){
+    burger.addEventListener("click", function(){
+      var open = mnav.getAttribute("data-open") === "true";
+      mnav.setAttribute("data-open", open ? "false" : "true");
+      burger.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+  }
+
+  /* --- плавные якоря через window.scrollTo --- */
+  var header = document.querySelector(".header");
+  function offsetTop(el){
+    var rect = el.getBoundingClientRect();
+    var head = header ? header.getBoundingClientRect().height : 0;
+    return rect.top + window.pageYOffset - head - 8;
+  }
+  document.addEventListener("click", function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if(!a) return;
+    var id = a.getAttribute("href");
+    if(!id || id === "#") return;
+    var target = document.querySelector(id);
+    if(!target) return;
+    e.preventDefault();
+    closeNav();
+    window.scrollTo({ top: Math.max(0, offsetTop(target)), left: 0, behavior: reduced ? "auto" : "smooth" });
+  });
+
+  /* --- reveal on scroll --- */
+  var items = document.querySelectorAll(".reveal");
+  if(reduced || !("IntersectionObserver" in window)){
+    Array.prototype.forEach.call(items, function(el){ el.classList.add("is-in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
+    Array.prototype.forEach.call(items, function(el){ io.observe(el); });
+  }
+
+  /* --- превью-анкета: ничего не отправляет --- */
+  var form = document.getElementById("brief-form");
+  var note = document.getElementById("brief-note");
+  if(form && note){
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      note.setAttribute("data-visible","true");
+    });
+  }
+})();
+</script>
+</body>
+</html>

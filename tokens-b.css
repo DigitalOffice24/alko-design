@@ -1,0 +1,71 @@
+/* AlKô — токен-сет B «Пульт» (dark precision / оператор с цифрами)
+   Тёмная база, точная сетка, монохром + один янтарный акцент, цифры моноширинными.
+   Шрифты: IBM Plex Sans (cyrillic ✓), IBM Plex Mono (cyrillic ✓)
+   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap'); */
+
+:root {
+  /* --- цвет --- */
+  --c-bg:            #0B0D0F;
+  --c-bg-alt:        #111417;
+  --c-surface:       #161A1E;
+  --c-ink:           #EDF0F2;
+  --c-ink-soft:      #98A2A9;
+  --c-ink-faint:     #6A757C;
+  --c-line:          #252B30;
+  --c-line-strong:   #38424A;
+  --c-accent:        #E8B04B;
+  --c-accent-ink:    #0B0D0F;
+  --c-accent-soft:   #2A2317;
+  --c-focus:         #E8B04B;
+  --c-danger:        #E0674F;
+
+  /* --- типографика --- */
+  --ff-display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --ff-text:    'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --ff-num:     'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+
+  --fs-display: clamp(2.375rem, 4.6vw, 4.25rem);  /* 38 → 68 */
+  --fs-h1:      clamp(1.875rem, 3.2vw, 3rem);     /* 30 → 48 */
+  --fs-h2:      clamp(1.5rem, 2.3vw, 2.125rem);   /* 24 → 34 */
+  --fs-h3:      clamp(1.25rem, 1.6vw, 1.5rem);    /* 20 → 24 */
+  --fs-lead:    clamp(1.0625rem, 1.3vw, 1.25rem); /* 17 → 20 */
+  --fs-body:    1rem;                              /* 16 */
+  --fs-small:   0.875rem;                          /* 14 */
+  --fs-label:   0.6875rem;                         /* 11 */
+
+  --lh-display: 1.06;
+  --lh-head:    1.16;
+  --lh-body:    1.6;
+  --tr-label:   0.12em;
+  --tr-display: -0.02em;
+
+  /* --- пространство --- */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-5: 24px;  --sp-6: 32px;  --sp-7: 48px;  --sp-8: 64px;
+  --sp-9: 80px;  --sp-10: 96px; --sp-11: 128px; --sp-12: 160px; --sp-13: 200px;
+
+  --container:       1180px;
+  --container-wide:  1360px;
+  --container-text:  720px;
+  --gutter:          24px;
+  --pad-x:           32px;
+
+  /* --- форма --- */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 6px;
+  --bw:   1px;
+
+  --shadow-1: inset 0 1px 0 rgba(255, 255, 255, .04);
+  --shadow-2: 0 0 0 1px var(--c-line);
+
+  --ctrl-h:    56px;
+  --ctrl-h-sm: 52px;
+
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur:  160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur: 0ms; }
+}

@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlKô — палитры: наши и Альзаны</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;background:#F2F2F0;color:#16181A;
+  font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,p,ul{margin:0}
+ul{padding:0;list-style:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+
+.page-head{padding:64px 0 40px;border-bottom:1px solid #D8D8D4}
+.page-head h1{font-size:40px;line-height:1.1;letter-spacing:-.02em;font-weight:600}
+.page-head p{margin-top:16px;color:#5A5F63;max-width:76ch}
+
+.band{padding:56px 0 24px}
+.band h2{font-size:26px;font-weight:600;letter-spacing:-.01em}
+.band .bd{margin-top:10px;color:#5A5F63;max-width:80ch}
+.band .tag{
+  display:inline-block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;color:#7A5B2E;background:#EFE4D2;padding:5px 10px;border-radius:3px;margin-bottom:14px;
+}
+.band.alz .tag{color:#1F4D3A;background:#E3EDE7}
+
+.pal{
+  background:#fff;border:1px solid #DEDEDA;border-radius:14px;overflow:hidden;margin-bottom:28px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.pal-head{padding:24px 28px;border-bottom:1px solid #E8E8E4;display:flex;flex-wrap:wrap;gap:16px;align-items:baseline}
+.pal-head h3{font-size:21px;font-weight:600}
+.pal-head .sub{color:#5A5F63;font-size:14px}
+.pal-head .use{margin-left:auto;font-size:13px;color:#5A5F63;max-width:52ch}
+
+.sw{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:#E8E8E4;border-bottom:1px solid #E8E8E4}
+.sw div{background:#fff;padding:14px 16px 16px}
+.sw .chip{height:56px;border-radius:6px;border:1px solid rgba(0,0,0,.10);margin-bottom:10px}
+.sw .nm{font-size:12px;font-weight:600}
+.sw .hx{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6B7075;margin-top:2px}
+.sw .ct{font-size:11px;color:#7A7F84;margin-top:6px;line-height:1.35}
+.sw .ok{color:#1F6B45}.sw .warn{color:#9A5B12}.sw .no{color:#A33321}
+
+.demos{display:grid;grid-template-columns:1.25fr 1fr}
+.stage{padding:32px;background:var(--bg);color:var(--ink);font-family:var(--ft)}
+.stage h4{font-family:var(--fd);font-size:28px;line-height:1.15;font-weight:500;letter-spacing:-.01em}
+.stage p.lead{color:var(--soft);margin-top:10px;font-size:14.5px;max-width:44ch}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;align-items:center}
+.b{
+  display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;
+  font-family:var(--ft);font-size:14.5px;font-weight:500;border:1px solid transparent;
+  border-radius:var(--rad);cursor:default;
+}
+.b1{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.b2{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.fld{margin-top:22px;max-width:340px}
+.fld label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:7px}
+.fld .inp{
+  height:48px;border:1px solid var(--line-strong);border-radius:var(--rad);background:var(--surface);
+  display:flex;align-items:center;padding:0 14px;font-size:14.5px;color:var(--faint);
+}
+.fld .inp.focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.fld .hint{font-size:12.5px;color:var(--faint);margin-top:6px}
+.svc{
+  margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--rad2);
+  padding:18px;display:grid;grid-template-columns:34px 1fr;gap:14px;max-width:400px;
+}
+.svc .n{
+  width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;
+}
+.svc h5{margin:0 0 3px;font-size:15px;font-weight:600}
+.svc p{margin:0;font-size:13px;color:var(--soft);line-height:1.45}
+.badge{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:5px 10px;border-radius:3px}
+
+.logos{border-left:1px solid #E8E8E4;display:grid;grid-template-rows:1fr 1fr}
+.lg{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:22px;padding:26px 20px}
+.lg.white{background:#fff}
+.lg.black{background:#111111}
+.lg svg{height:44px;width:auto}
+.lg .cap{width:100%;text-align:center;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.lg.white .cap{color:#9A9EA2}
+.lg.black .cap{color:#6E7276}
+
+.note{padding:18px 28px;border-top:1px solid #E8E8E4;font-size:13.5px;color:#5A5F63;background:#FBFBFA}
+.note b{color:#16181A}
+
+.foot{padding:40px 0 64px;color:#7A7F84;font-size:13.5px}
+
+@media (max-width:1000px){
+  .demos{grid-template-columns:1fr}
+  .logos{border-left:0;border-top:1px solid #E8E8E4}
+  .sw{grid-template-columns:repeat(3,1fr)}
+  .pal-head .use{margin-left:0}
+}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .sw{grid-template-columns:repeat(2,1fr)}
+  .page-head h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="page-head">
+    <h1>AlKô — палитры</h1>
+    <p>Два раздельных набора. Первый — родные палитры трёх дизайн-направлений: они придуманы вместе с типографикой, ритмом и работой с фото, поэтому меняются только целиком. Второй — палитры Альзаны (беж, зелёный, марсала на чёрно-белой базе): они устроены как сменный слой и накладываются на любое из трёх направлений через переключатель на макете. Все контрасты посчитаны по WCAG 2.1, а не оценены на глаз.</p>
+  </header>
+
+  <!-- ============================================================
+       НАБОР 1 — НАШИ ПАЛИТРЫ
+       ============================================================ -->
+  <section class="band">
+    <span class="tag">Набор 1</span>
+    <h2>Палитры AlKô (предложение дизайнера)</h2>
+    <p class="bd">Каждая палитра неразрывна со своим направлением: бумага требует бестеневой вёрстки и антиквы, графит — моноширинных цифр и точной сетки, песок и море — арок и тёплого гротеска. Это не «цветовые темы», а часть концепта.</p>
+  </section>
+
+  <!-- A -->
+  <article class="pal">
+    <div class="pal-head">
+      <h3>A · «Издание»</h3>
+      <span class="sub">тёплая бумага + бронза</span>
+      <span class="use">Тихая роскошь. Бронза работает как единственный акцент: подпись, ссылка, одна кнопка на экран. Теней нет — иерархию держат волосяные линии.</span>
+    </div>
+    <div class="sw">
+      <div><div class="chip" style="background:#F6F2EB"></div><div class="nm">Бумага (фон)</div><div class="hx">#F6F2EB</div><div class="ct">основной фон</div></div>
+      <div><div class="chip" style="background:#EDE7DD"></div><div class="nm">Бумага тёмная</div><div class="hx">#EDE7DD</div><div class="ct">чередующаяся секция</div></div>
+      <div><div class="chip" style="background:#1B1815"></div><div class="nm">Чернила</div><div class="hx">#1B1815</div><div class="ct ok">14,6:1 на фоне ✅ AAA</div></div>
+      <div><div class="chip" style="background:#5A544B"></div><div class="nm">Чернила мягкие</div><div class="hx">#5A544B</div><div class="ct ok">7,4:1 ✅ AAA</div></div>
+      <div><div class="chip" style="background:#7A5C2E"></div><div class="nm">Бронза (акцент)</div><div class="hx">#7A5C2E</div><div class="ct ok">6,8:1 ✅ AA — можно текстом</div></div>
+      <div><div class="chip" style="background:#D8D0C3"></div><div class="nm">Линия</div><div class="hx">#D8D0C3</div><div class="ct">разделители, рамки</div></div>
+    </div>
+    <div class="demos">
+      <div class="stage" style="--bg:#F6F2EB;--ink:#1B1815;--soft:#5A544B;--faint:#8C8477;--line:#D8D0C3;--line-strong:#B7AC99;--surface:#FFFDF9;--accent:#7A5C2E;--accent-ink:#FFFDF9;--accent-soft:#EDE2CE;--rad:0px;--rad2:0px;--fd:'Cormorant Garamond',Georgia,serif;--ft:'Inter',Arial,sans-serif">
+        <span class="badge">Первый шаг</span>
+        <h4 style="margin-top:14px">Отель остаётся вашим. Операционка — наша.</h4>
+        <p class="lead">Управляющая компания для объектов на 20–300 номеров. Целиком или отдельными функциями.</p>
+        <div class="row"><span class="b b1">Заполнить анкету</span><span class="b b2">Обсудить объект</span></div>
+        <div class="fld">
+          <label for="pa">Номерной фонд</label>
+          <div class="inp focus" id="pa">Число номеров или юнитов</div>
+          <div class="hint">Достаточно примерного числа</div>
+        </div>
+        <div class="svc"><span class="n">06</span><div><h5>Revenue Management</h5><p>Тарифная сетка, ограничения, календарь спроса — цена меняется не по интуиции.</p></div></div>
+      </div>
+      <div class="logos">
+        <div class="lg white">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#1B1815" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#7A5C2E" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <span class="cap">на белом</span>
+        </div>
+        <div class="lg black">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#F6F2EB" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#C3A164" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <span class="cap">на чёрном</span>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Ограничение:</b> бронза #7A5C2E на чёрном даёт 3,5:1 — на тёмном фоне знак ставится в осветлённом варианте #C3A164 (9,3:1).</p>
+  </article>
+
+  <!-- B -->
+  <article class="pal">
+    <div class="pal-head">
+      <h3>B · «Пульт»</h3>
+      <span class="sub">графит + янтарь</span>
+      <span class="use">Приборная панель. Монохром и один сигнальный акцент: янтарь отмечает действие и статус, больше нигде не появляется.</span>
+    </div>
+    <div class="sw">
+      <div><div class="chip" style="background:#0B0D0F"></div><div class="nm">Графит (фон)</div><div class="hx">#0B0D0F</div><div class="ct">не чистый чёрный — меньше ореол</div></div>
+      <div><div class="chip" style="background:#161A1E"></div><div class="nm">Панель</div><div class="hx">#161A1E</div><div class="ct">поверхность карточки</div></div>
+      <div><div class="chip" style="background:#EDF0F2"></div><div class="nm">Свет</div><div class="hx">#EDF0F2</div><div class="ct ok">15,1:1 ✅ AAA</div></div>
+      <div><div class="chip" style="background:#98A2A9"></div><div class="nm">Свет мягкий</div><div class="hx">#98A2A9</div><div class="ct ok">5,3:1 ✅ AA</div></div>
+      <div><div class="chip" style="background:#E8B04B"></div><div class="nm">Янтарь (акцент)</div><div class="hx">#E8B04B</div><div class="ct ok">9,4:1 ✅ AAA</div></div>
+      <div><div class="chip" style="background:#252B30"></div><div class="nm">Линия</div><div class="hx">#252B30</div><div class="ct">сетка, границы ячеек</div></div>
+    </div>
+    <div class="demos">
+      <div class="stage" style="--bg:#0B0D0F;--ink:#EDF0F2;--soft:#98A2A9;--faint:#6A757C;--line:#252B30;--line-strong:#38424A;--surface:#161A1E;--accent:#E8B04B;--accent-ink:#0B0D0F;--accent-soft:#2A2317;--rad:4px;--rad2:6px;--fd:'IBM Plex Sans',Arial,sans-serif;--ft:'IBM Plex Sans',Arial,sans-serif">
+        <span class="badge">Приём объектов · 2026</span>
+        <h4 style="margin-top:14px">Управление отелем как система, а не как ручной режим</h4>
+        <p class="lead">Загрузка, тариф, себестоимость и персонал — в одном контуре с фиксированной формой отчёта.</p>
+        <div class="row"><span class="b b1">Заполнить анкету</span><span class="b b2">Обсудить объект</span></div>
+        <div class="fld">
+          <label for="pb">Номерной фонд</label>
+          <div class="inp focus" id="pb">Номеров или юнитов</div>
+          <div class="hint">Достаточно примерного числа</div>
+        </div>
+        <div class="svc"><span class="n">06</span><div><h5>Revenue Management</h5><p>Тариф, ограничения, календарь спроса. Цена меняется по правилу, а не по настроению.</p></div></div>
+      </div>
+      <div class="logos">
+        <div class="lg white">
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#0B0D0F" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#9A6F14" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#9A6F14"/></svg>
+          <span class="cap">на белом</span>
+        </div>
+        <div class="lg black">
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#EDF0F2" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#E8B04B" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#E8B04B"/></svg>
+          <span class="cap">на чёрном</span>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Ограничение:</b> янтарь #E8B04B на белом даёт 1,9:1 — на светлом фоне знак идёт в затемнённом варианте #9A6F14 (4,9:1). Родная среда палитры — тёмная.</p>
+  </article>
+
+  <!-- C -->
+  <article class="pal">
+    <div class="pal-head">
+      <h3>C · «Берег»</h3>
+      <span class="sub">песок + глубокое море + терракота</span>
+      <span class="use">Южное гостеприимство. Терракота — на светлом, золото — на глубоком море: один и тот же акцент в двух средах, поэтому цветов кажется больше, чем есть.</span>
+    </div>
+    <div class="sw">
+      <div><div class="chip" style="background:#FBF6EF"></div><div class="nm">Песок (фон)</div><div class="hx">#FBF6EF</div><div class="ct">основной фон</div></div>
+      <div><div class="chip" style="background:#F3E9DC"></div><div class="nm">Песок тёмный</div><div class="hx">#F3E9DC</div><div class="ct">чередующаяся секция</div></div>
+      <div><div class="chip" style="background:#14343B"></div><div class="nm">Море (текст)</div><div class="hx">#14343B</div><div class="ct ok">11,8:1 ✅ AAA</div></div>
+      <div><div class="chip" style="background:#0F3038"></div><div class="nm">Глубокое море</div><div class="hx">#0F3038</div><div class="ct">фон инверсных секций</div></div>
+      <div><div class="chip" style="background:#C2603A"></div><div class="nm">Терракота (акцент)</div><div class="hx">#C2603A</div><div class="ct warn">4,8:1 на песке ✅ AA</div></div>
+      <div><div class="chip" style="background:#D9A441"></div><div class="nm">Золото</div><div class="hx">#D9A441</div><div class="ct ok">6,2:1 на море ✅ AA</div></div>
+    </div>
+    <div class="demos">
+      <div class="stage" style="--bg:#FBF6EF;--ink:#14343B;--soft:#4A6167;--faint:#8AA0A4;--line:#E0D2BF;--line-strong:#C6B49B;--surface:#FFFFFF;--accent:#C2603A;--accent-ink:#FFF7EF;--accent-soft:#F6E3D6;--rad:999px;--rad2:16px;--fd:'Lora',Georgia,serif;--ft:'Golos Text',Arial,sans-serif">
+        <span class="badge">Управляющая компания для Ôтелей</span>
+        <h4 style="margin-top:14px">Гостеприимство юга — с управлением уровня оператора</h4>
+        <p class="lead">Отели, гостевые дома, апарт-отели и санатории на 20–300 номеров.</p>
+        <div class="row"><span class="b b1">Заполнить анкету</span><span class="b b2">Обсудить объект</span></div>
+        <div class="fld">
+          <label for="pc">Номерной фонд</label>
+          <div class="inp focus" id="pc" style="border-radius:6px">Номеров или юнитов</div>
+          <div class="hint">Достаточно примерного числа</div>
+        </div>
+        <div class="svc"><span class="n">06</span><div><h5>Revenue Management</h5><p>Тариф, ограничения, календарь спроса — под сезонность именно вашего берега.</p></div></div>
+      </div>
+      <div class="logos">
+        <div class="lg white">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#14343B" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#C2603A" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#C2603A" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на белом</span>
+        </div>
+        <div class="lg black">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#F1E5D6" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#D9A441" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#D9A441" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на чёрном</span>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Ограничение:</b> терракота проходит AA (4,8:1) — для мелких подписей ниже 14 px её лучше не использовать; на глубоком море терракота даёт всего 3,4:1, поэтому там акцент всегда золотой.</p>
+  </article>
+
+  <!-- ============================================================
+       НАБОР 2 — ПАЛИТРЫ АЛЬЗАНЫ
+       ============================================================ -->
+  <section class="band alz">
+    <span class="tag">Набор 2</span>
+    <h2>Палитры Альзаны (беж / зелёный / марсала)</h2>
+    <p class="bd">База — чёрный и белый, акцент — один цвет в трёх светлотах: рабочий тон, светлая подложка и осветлённый вариант для тёмного фона. Накладываются на любое из направлений A/B/C переключателем в макете. Файлы: <code>palette-beige.css</code>, <code>palette-green.css</code>, <code>palette-marsala.css</code>.</p>
+  </section>
+
+  <!-- БЕЖ -->
+  <article class="pal">
+    <div class="pal-head">
+      <h3>Беж</h3>
+      <span class="sub">тёплый песок / латте</span>
+      <span class="use">Самая тихая из трёх. Требует дисциплины: беж быстро становится «грязным», если рядом больше одного тёплого серого.</span>
+    </div>
+    <div class="sw">
+      <div><div class="chip" style="background:#131313"></div><div class="nm">Чёрный</div><div class="hx">#131313</div><div class="ct ok">16,9:1 на бумаге ✅ AAA</div></div>
+      <div><div class="chip" style="background:#FFFFFF"></div><div class="nm">Белый</div><div class="hx">#FFFFFF</div><div class="ct">поверхности</div></div>
+      <div><div class="chip" style="background:#FBF8F2"></div><div class="nm">Тёплая бумага</div><div class="hx">#FBF8F2</div><div class="ct">основной фон</div></div>
+      <div><div class="chip" style="background:#B08D57"></div><div class="nm">Беж (акцент)</div><div class="hx">#B08D57</div><div class="ct warn">3,1:1 ⚠️ только плашки и линии</div></div>
+      <div><div class="chip" style="background:#7A5B2E"></div><div class="nm">Беж тёмный</div><div class="hx">#7A5B2E</div><div class="ct ok">6,2:1 ✅ AA — текст и кнопки</div></div>
+      <div><div class="chip" style="background:#F1E5D2"></div><div class="nm">Беж светлый</div><div class="hx">#F1E5D2</div><div class="ct">подложка, бейджи</div></div>
+    </div>
+    <div class="demos">
+      <div class="stage" style="--bg:#FBF8F2;--ink:#131313;--soft:#55504A;--faint:#8B857C;--line:#E0D7C6;--line-strong:#BCAF99;--surface:#FFFFFF;--accent:#7A5B2E;--accent-ink:#FFFFFF;--accent-soft:#F1E5D2;--rad:6px;--rad2:10px;--fd:'Inter',Arial,sans-serif;--ft:'Inter',Arial,sans-serif">
+        <span class="badge">Палитра «Беж»</span>
+        <h4 style="margin-top:14px">Отель остаётся вашим. Операционка — наша.</h4>
+        <p class="lead">Чёрно-белая база, беж — единственный цвет. Кнопка берёт тёмный тон, плашка — светлый.</p>
+        <div class="row"><span class="b b1">Заполнить анкету</span><span class="b b2">Обсудить объект</span></div>
+        <div class="fld">
+          <label for="pd">Номерной фонд</label>
+          <div class="inp focus" id="pd">Число номеров или юнитов</div>
+          <div class="hint">Достаточно примерного числа</div>
+        </div>
+        <div class="svc"><span class="n">06</span><div><h5>Revenue Management</h5><p>Тарифная сетка, ограничения, календарь спроса.</p></div></div>
+      </div>
+      <div class="logos">
+        <div class="lg white">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#131313" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#7A5B2E" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#131313" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#7A5B2E" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#7A5B2E"/></svg>
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#131313" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#7A5B2E" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#7A5B2E" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на белом · три трактовки знака</span>
+        </div>
+        <div class="lg black">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#F4F1EB" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#D9BC8C" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#F4F1EB" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#D9BC8C" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#D9BC8C"/></svg>
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#F4F1EB" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#D9BC8C" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#D9BC8C" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на чёрном · акцент #D9BC8C</span>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Правило:</b> #B08D57 — не текстовый цвет. Для надписей и ссылок берём #7A5B2E, для акцента на чёрном — #D9BC8C.</p>
+  </article>
+
+  <!-- ЗЕЛЁНЫЙ -->
+  <article class="pal">
+    <div class="pal-head">
+      <h3>Зелёный</h3>
+      <span class="sub">бутылочный / сосновый</span>
+      <span class="use">Самая универсальная: единственная, где акцент проходит AA как текст и на белом, и — в осветлённом варианте — на чёрном.</span>
+    </div>
+    <div class="sw">
+      <div><div class="chip" style="background:#111311"></div><div class="nm">Чёрный</div><div class="hx">#111311</div><div class="ct ok">17,5:1 ✅ AAA</div></div>
+      <div><div class="chip" style="background:#FFFFFF"></div><div class="nm">Белый</div><div class="hx">#FFFFFF</div><div class="ct">поверхности</div></div>
+      <div><div class="chip" style="background:#F6F8F5"></div><div class="nm">Бумага</div><div class="hx">#F6F8F5</div><div class="ct">основной фон</div></div>
+      <div><div class="chip" style="background:#1F4D3A"></div><div class="nm">Зелёный (акцент)</div><div class="hx">#1F4D3A</div><div class="ct ok">9,6:1 ✅ AAA — текст и кнопки</div></div>
+      <div><div class="chip" style="background:#6FBF9B"></div><div class="nm">Зелёный светлый</div><div class="hx">#6FBF9B</div><div class="ct ok">8,8:1 на чёрном ✅ AAA</div></div>
+      <div><div class="chip" style="background:#E3EDE7"></div><div class="nm">Зелёный тон</div><div class="hx">#E3EDE7</div><div class="ct">подложка, бейджи</div></div>
+    </div>
+    <div class="demos">
+      <div class="stage" style="--bg:#F6F8F5;--ink:#111311;--soft:#4B5551;--faint:#818B86;--line:#D5DCD6;--line-strong:#A8B3AC;--surface:#FFFFFF;--accent:#1F4D3A;--accent-ink:#FFFFFF;--accent-soft:#E3EDE7;--rad:6px;--rad2:10px;--fd:'Inter',Arial,sans-serif;--ft:'Inter',Arial,sans-serif">
+        <span class="badge">Палитра «Зелёный»</span>
+        <h4 style="margin-top:14px">Отель остаётся вашим. Операционка — наша.</h4>
+        <p class="lead">Глубокий зелёный читается как «спокойная компетентность» — редкий цвет в гостиничном сегменте РФ.</p>
+        <div class="row"><span class="b b1">Заполнить анкету</span><span class="b b2">Обсудить объект</span></div>
+        <div class="fld">
+          <label for="pe">Номерной фонд</label>
+          <div class="inp focus" id="pe">Число номеров или юнитов</div>
+          <div class="hint">Достаточно примерного числа</div>
+        </div>
+        <div class="svc"><span class="n">06</span><div><h5>Revenue Management</h5><p>Тарифная сетка, ограничения, календарь спроса.</p></div></div>
+      </div>
+      <div class="logos">
+        <div class="lg white">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#111311" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#1F4D3A" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#111311" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#1F4D3A" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#1F4D3A"/></svg>
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#111311" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#1F4D3A" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#1F4D3A" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на белом · три трактовки знака</span>
+        </div>
+        <div class="lg black">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#EAF1ED" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#6FBF9B" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#EAF1ED" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#6FBF9B" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#6FBF9B"/></svg>
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#EAF1ED" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#6FBF9B" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#6FBF9B" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на чёрном · акцент #6FBF9B</span>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Правило:</b> #1F4D3A на чёрном даёт 2,0:1 — на тёмной базе акцент всегда #6FBF9B. Обратное тоже верно: светлый зелёный на белом нечитаем.</p>
+  </article>
+
+  <!-- МАРСАЛА -->
+  <article class="pal">
+    <div class="pal-head">
+      <h3>Марсала</h3>
+      <span class="sub">винный / тёплый бордо</span>
+      <span class="use">Самая «гостиничная» из трёх и самая рискованная: близка к красному сигналу ошибки, поэтому цвет ошибки в интерфейсе должен быть отчётливо другим.</span>
+    </div>
+    <div class="sw">
+      <div><div class="chip" style="background:#141010"></div><div class="nm">Чёрный</div><div class="hx">#141010</div><div class="ct ok">16,6:1 ✅ AAA</div></div>
+      <div><div class="chip" style="background:#FFFFFF"></div><div class="nm">Белый</div><div class="hx">#FFFFFF</div><div class="ct">поверхности</div></div>
+      <div><div class="chip" style="background:#FAF6F5"></div><div class="nm">Бумага</div><div class="hx">#FAF6F5</div><div class="ct">основной фон</div></div>
+      <div><div class="chip" style="background:#8A3138"></div><div class="nm">Марсала (акцент)</div><div class="hx">#8A3138</div><div class="ct ok">8,2:1 ✅ AAA — текст и кнопки</div></div>
+      <div><div class="chip" style="background:#C77A80"></div><div class="nm">Марсала светлая</div><div class="hx">#C77A80</div><div class="ct ok">6,0:1 на чёрном ✅ AA</div></div>
+      <div><div class="chip" style="background:#F5E3E2"></div><div class="nm">Марсала тон</div><div class="hx">#F5E3E2</div><div class="ct">подложка, бейджи</div></div>
+    </div>
+    <div class="demos">
+      <div class="stage" style="--bg:#FAF6F5;--ink:#141010;--soft:#564A48;--faint:#8B7C7A;--line:#E4D6D2;--line-strong:#BDA7A2;--surface:#FFFFFF;--accent:#8A3138;--accent-ink:#FFFFFF;--accent-soft:#F5E3E2;--rad:6px;--rad2:10px;--fd:'Inter',Arial,sans-serif;--ft:'Inter',Arial,sans-serif">
+        <span class="badge">Палитра «Марсала»</span>
+        <h4 style="margin-top:14px">Отель остаётся вашим. Операционка — наша.</h4>
+        <p class="lead">Винный тон отсылает к ресторанному сегменту и премиальному гостеприимству.</p>
+        <div class="row"><span class="b b1">Заполнить анкету</span><span class="b b2">Обсудить объект</span></div>
+        <div class="fld">
+          <label for="pf">Номерной фонд</label>
+          <div class="inp focus" id="pf">Число номеров или юнитов</div>
+          <div class="hint">Достаточно примерного числа</div>
+        </div>
+        <div class="svc"><span class="n">06</span><div><h5>Revenue Management</h5><p>Тарифная сетка, ограничения, календарь спроса.</p></div></div>
+      </div>
+      <div class="logos">
+        <div class="lg white">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#141010" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#8A3138" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#141010" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#8A3138" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#8A3138"/></svg>
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#141010" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#8A3138" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#8A3138" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на белом · три трактовки знака</span>
+        </div>
+        <div class="lg black">
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="45" fill="#F3ECEB" font-size="40" textLength="86" lengthAdjust="spacing" font-family="'Cormorant Garamond',Georgia,serif">AlKo</text><g stroke="#C77A80" fill="none" stroke-width="1.2"><path d="M2 14 H62"/><path d="M62 14 L79 5 L96 14"/><path d="M96 14 H118" opacity=".4"/></g></svg>
+          <svg viewBox="0 0 200 52" aria-label="AlKô"><text x="2" y="40" fill="#F3ECEB" font-size="34" font-weight="500" textLength="72" lengthAdjust="spacing" font-family="'IBM Plex Sans',Arial,sans-serif">AlKo</text><path d="M54 13 L64.5 5 L75 13" fill="none" stroke="#C77A80" stroke-width="3"/><rect x="86" y="8" width="5" height="5" fill="#C77A80"/></svg>
+          <svg viewBox="0 0 210 56" aria-label="AlKô"><text x="2" y="44" fill="#F3ECEB" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing" font-family="'Lora',Georgia,serif">AlKo</text><path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="#C77A80" stroke-width="2.6" stroke-linecap="round"/><path d="M59 13 h-4 M87 13 h4" stroke="#C77A80" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <span class="cap">на чёрном · акцент #C77A80</span>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Правило:</b> #8A3138 на чёрном даёт 2,3:1 — на тёмной базе акцент всегда #C77A80. Цвет ошибки в формах брать отдельный (#B3261E), иначе акцент и ошибка сольются.</p>
+  </article>
+
+  <p class="foot">Переключить палитру на любом макете: кнопки «Наша · Беж · Зелёный · Марсала» в правом нижнем углу, либо параметр в адресе — <code>variant-a.html?p=green</code>. Переключатель — демонстрационный контрол, в продакшн-версию страницы он не входит.</p>
+</div>
+
+</body>
+</html>

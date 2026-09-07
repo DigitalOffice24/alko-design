@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="ru" data-palette="native">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlKô — управляющая компания для отелей · Направление C «Берег»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AlKô · токен-сет C «Берег» (копия tokens-c.css) + слой палитр
+   ============================================================ */
+:root{
+  --c-bg:#FBF6EF; --c-bg-alt:#F3E9DC; --c-surface:#FFFFFF; --c-top-bg:rgba(251,246,239,.94);
+  --c-ink:#14343B; --c-ink-soft:#4A6167; --c-ink-faint:#8AA0A4;
+  --c-line:#E0D2BF; --c-line-strong:#C6B49B;
+  --c-accent:#C2603A; --c-accent-hover:#A34E2D; --c-accent-ink:#FFF7EF; --c-accent-soft:#F6E3D6;
+  --c-deep:#0F3038; --c-deep-ink:#F1E5D6; --c-deep-accent:#D9A441;
+  --c-focus:#C2603A;
+
+  --ff-display:'Lora',Georgia,'Times New Roman',serif;
+  --ff-text:'Golos Text','Helvetica Neue',Arial,sans-serif;
+
+  --fs-display:clamp(2.5rem,5vw,4.75rem);
+  --fs-h1:clamp(2rem,3.6vw,3.375rem);
+  --fs-h2:clamp(1.625rem,2.5vw,2.375rem);
+  --fs-h3:clamp(1.3125rem,1.75vw,1.625rem);
+  --fs-lead:clamp(1.125rem,1.35vw,1.3125rem);
+  --fs-body:1.0625rem; --fs-small:.9375rem; --fs-label:.75rem;
+
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;
+  --sp-7:48px;--sp-8:64px;--sp-9:80px;--sp-10:96px;--sp-11:128px;--sp-12:160px;
+
+  --container:1180px; --container-wide:1360px;
+  --pad-x:32px; --ctrl-h:56px;
+  --r-sm:6px; --r-md:12px; --r-lg:20px;
+  --ease:cubic-bezier(.4,0,.2,1); --dur:180ms;
+}
+
+/* ---------- ПАЛИТРЫ АЛЬЗАНЫ (беж / зелёный / марсала), база чёрный+белый ----------
+   Родная палитра концепта (песок / глубокое море / терракота) остаётся в :root. */
+html[data-palette="beige"]{
+  --c-bg:#FBF6EE; --c-bg-alt:#F2E9DA; --c-surface:#FFFFFF; --c-top-bg:rgba(251,246,238,.94);
+  --c-ink:#1A1712; --c-ink-soft:#5A5247; --c-ink-faint:#8E857A;
+  --c-line:#E2D6C2; --c-line-strong:#C4B49A;
+  --c-accent:#7A5B2E; --c-accent-hover:#5F4623; --c-accent-ink:#FFFCF6; --c-accent-soft:#F2E6D3;
+  --c-deep:#241C12; --c-deep-ink:#F2E7D5; --c-deep-accent:#D9BC8C; --c-focus:#7A5B2E;
+}
+html[data-palette="green"]{
+  --c-bg:#F5F7F4; --c-bg-alt:#E9EFE9; --c-surface:#FFFFFF; --c-top-bg:rgba(245,247,244,.94);
+  --c-ink:#121614; --c-ink-soft:#4C5652; --c-ink-faint:#828C87;
+  --c-line:#D5DCD6; --c-line-strong:#AAB5AE;
+  --c-accent:#1F4D3A; --c-accent-hover:#143529; --c-accent-ink:#FFFFFF; --c-accent-soft:#E3EDE7;
+  --c-deep:#10241B; --c-deep-ink:#E7EFE9; --c-deep-accent:#6FBF9B; --c-focus:#1F4D3A;
+}
+html[data-palette="marsala"]{
+  --c-bg:#F9F4F2; --c-bg-alt:#F1E7E3; --c-surface:#FFFFFF; --c-top-bg:rgba(249,244,242,.94);
+  --c-ink:#191312; --c-ink-soft:#574B49; --c-ink-faint:#8C7D7B;
+  --c-line:#E4D6D1; --c-line-strong:#BFA9A4;
+  --c-accent:#8A3138; --c-accent-hover:#6B242A; --c-accent-ink:#FFFFFF; --c-accent-soft:#F5E3E2;
+  --c-deep:#26100F; --c-deep-ink:#F3E6E4; --c-deep-accent:#C77A80; --c-focus:#8A3138;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--c-bg);color:var(--c-ink);
+  font-family:var(--ff-text);font-size:var(--fs-body);line-height:1.64;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--c-focus);outline-offset:2px}
+
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--pad-x)}
+.label{font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--c-accent)}
+.serif{font-family:var(--ff-display)}
+
+/* ---------- шапка ---------- */
+.top{position:sticky;top:0;z-index:50;background:var(--c-top-bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--c-line)}
+.top-in{display:flex;align-items:center;gap:var(--sp-7);height:88px}
+.brand svg{height:46px;width:auto;display:block}
+.nav{display:flex;gap:var(--sp-6);margin-left:auto;align-items:center}
+.nav a{font-size:var(--fs-small);color:var(--c-ink-soft);transition:color var(--dur) var(--ease)}
+.nav a:hover{color:var(--c-accent)}
+
+/* ---------- кнопки ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-3);
+  min-height:var(--ctrl-h);padding:0 var(--sp-6);font-family:var(--ff-text);
+  font-size:var(--fs-body);font-weight:500;border:1px solid transparent;border-radius:999px;
+  cursor:pointer;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.btn-primary{background:var(--c-accent);color:var(--c-accent-ink);border-color:var(--c-accent)}
+.btn-primary:hover{background:var(--c-accent-hover);border-color:var(--c-accent-hover)}
+.btn-secondary{background:transparent;color:var(--c-ink);border-color:var(--c-line-strong)}
+.btn-secondary:hover{border-color:var(--c-accent);color:var(--c-accent)}
+.btn-sm{min-height:44px;padding:0 var(--sp-5);font-size:var(--fs-small)}
+.on-deep .btn-primary{background:var(--c-deep-accent);color:var(--c-deep);border-color:var(--c-deep-accent)}
+.on-deep .btn-secondary{color:var(--c-deep-ink);border-color:rgba(255,255,255,.28)}
+.on-deep .btn-secondary:hover{border-color:var(--c-deep-accent);color:var(--c-deep-accent)}
+
+/* ---------- орнамент: восьмиконечная звезда ---------- */
+.orn{display:flex;align-items:center;gap:var(--sp-4);color:var(--c-line-strong)}
+.orn::before,.orn::after{content:'';height:1px;background:currentColor;flex:1}
+.orn svg{width:18px;height:18px;flex:0 0 auto;color:var(--c-accent)}
+
+/* ---------- фото и арки ---------- */
+.ph{position:relative;overflow:hidden;background:linear-gradient(165deg,var(--c-bg-alt),var(--c-line))}
+.ph::after{
+  content:attr(data-cap);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-faint);
+}
+.ph img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover}
+.arch{border-radius:999px 999px var(--r-md) var(--r-md)}
+.r34{aspect-ratio:3/4}.r169{aspect-ratio:16/9}.r11{aspect-ratio:1/1}
+
+
+/* оформленный плейсхолдер портрета — вместо чужого лица */
+.ph-person{display:flex;align-items:center;justify-content:center}
+.ph-person .mark{font-family:var(--ff-display);font-size:120px;line-height:1;color:var(--c-line-strong);transform:translateY(-14px)}
+.ph-person::after{align-items:flex-end;padding-bottom:22px}
+
+/* ---------- герой ---------- */
+.hero{padding:var(--sp-10) 0 var(--sp-9);position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--sp-9);align-items:center}
+.hero h1{
+  font-family:var(--ff-display);font-weight:500;font-size:var(--fs-display);
+  line-height:1.08;letter-spacing:-.01em;margin:var(--sp-5) 0 var(--sp-6);
+}
+.hero h1 em{font-style:italic;color:var(--c-accent);font-weight:400}
+.hero-lead{font-size:var(--fs-lead);color:var(--c-ink-soft);max-width:46ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-7)}
+.hero-note{font-size:var(--fs-small);color:var(--c-ink-faint);margin-top:var(--sp-5);max-width:44ch}
+.hero-art{position:relative}
+.hero-art .ph{box-shadow:0 26px 60px rgba(0,0,0,.14)}
+.hero-badge{
+  position:absolute;left:50%;transform:translateX(-50%);bottom:-26px;
+  background:var(--c-surface);border:1px solid var(--c-line);border-radius:999px;
+  padding:var(--sp-3) var(--sp-6);font-size:var(--fs-small);color:var(--c-ink-soft);white-space:nowrap;
+  box-shadow:0 10px 28px rgba(0,0,0,.08);
+}
+
+/* ---------- секции ---------- */
+.sec{padding:var(--sp-11) 0}
+.sec-alt{background:var(--c-bg-alt)}
+.sec-deep{background:var(--c-deep);color:var(--c-deep-ink)}
+.sec-deep .label{color:var(--c-deep-accent)}
+.sec-head{max-width:720px;margin-bottom:var(--sp-8)}
+.sec-head h2{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h2);line-height:1.18;margin-top:var(--sp-3)}
+.sec-head .sub{color:var(--c-ink-soft);margin-top:var(--sp-4)}
+.sec-deep .sec-head .sub{color:rgba(255,255,255,.72)}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+
+/* ---------- аркада «для кого» ---------- */
+.arcade{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-5)}
+.arc{text-align:center}
+.arc .ph{margin-bottom:var(--sp-5)}
+.arc h3{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h3);margin-bottom:var(--sp-2)}
+.arc p{font-size:var(--fs-small);color:var(--c-ink-soft);line-height:1.5}
+.arc .m{display:inline-block;margin-top:var(--sp-3);font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--c-accent)}
+.notfit{
+  margin-top:var(--sp-9);background:var(--c-surface);border:1px solid var(--c-line);
+  border-radius:var(--r-lg);padding:var(--sp-7);max-width:860px;margin-left:auto;margin-right:auto;
+}
+.notfit h3{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h3);margin-bottom:var(--sp-4)}
+.notfit li{position:relative;padding-left:var(--sp-6);color:var(--c-ink-soft);font-size:var(--fs-small);margin-bottom:var(--sp-3)}
+.notfit li::before{content:'';position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--c-accent);opacity:.5}
+
+/* ---------- услуги ---------- */
+.groups{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-6)}
+.group{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--r-lg);padding:var(--sp-7);box-shadow:0 2px 10px rgba(20,52,59,.04)}
+.group.wide{grid-column:1/-1}
+.group h3{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h3);margin-bottom:var(--sp-5);padding-bottom:var(--sp-4);border-bottom:1px solid var(--c-line)}
+.group.wide .items{grid-template-columns:repeat(4,1fr)}
+.items{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-5) var(--sp-6)}
+.item{display:grid;grid-template-columns:36px 1fr;gap:var(--sp-4)}
+.item .n{
+  width:32px;height:32px;border-radius:50%;background:var(--c-accent-soft);color:var(--c-accent);
+  display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:600;
+}
+.item h4{font-size:var(--fs-body);font-weight:600;margin-bottom:2px;line-height:1.3}
+.item p{font-size:var(--fs-small);color:var(--c-ink-soft);line-height:1.5}
+
+/* ---------- шаги: медальоны-арки ---------- */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-6);margin-top:var(--sp-8)}
+.stp{text-align:center}
+.stp .med{
+  width:76px;height:88px;margin:0 auto var(--sp-5);border:1px solid var(--c-deep-accent);
+  border-radius:999px 999px var(--r-sm) var(--r-sm);display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-display);font-size:1.75rem;color:var(--c-deep-accent);
+}
+.stp h3{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h3);margin-bottom:var(--sp-3)}
+.stp p{font-size:var(--fs-small);color:rgba(255,255,255,.72);line-height:1.5}
+.stp .t{display:inline-block;margin-top:var(--sp-4);font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--c-deep-accent)}
+
+/* ---------- таблица моделей ---------- */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--r-lg);overflow:hidden;text-align:left}
+.tbl th{
+  font-size:var(--fs-label);letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c-ink-soft);
+  padding:var(--sp-5);background:var(--c-bg-alt);border-bottom:1px solid var(--c-line);vertical-align:bottom;
+}
+.tbl td{padding:var(--sp-6) var(--sp-5);border-bottom:1px solid var(--c-line);font-size:var(--fs-small);color:var(--c-ink-soft);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td:first-child{font-family:var(--ff-display);font-size:var(--fs-h3);color:var(--c-ink);width:23%;line-height:1.25}
+.tbl-note{margin-top:var(--sp-5);font-size:var(--fs-small);color:var(--c-ink-faint);max-width:72ch}
+
+/* ---------- почему / отчёт (на глубоком фоне) ---------- */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-7);margin-top:var(--sp-8)}
+.why h3{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h3);margin:var(--sp-4) 0 var(--sp-3)}
+.why p{font-size:var(--fs-small);color:rgba(255,255,255,.72);line-height:1.55}
+.why .wn{font-family:var(--ff-display);font-size:1.5rem;color:var(--c-deep-accent)}
+
+.report{margin-top:var(--sp-10);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-lg);overflow:hidden}
+.report-head{display:flex;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap;padding:var(--sp-5) var(--sp-6);border-bottom:1px solid rgba(255,255,255,.16)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr)}
+.metric{padding:var(--sp-6);border-right:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16)}
+.metric:nth-child(3n){border-right:0}
+.metric:nth-last-child(-n+3){border-bottom:0}
+.metric .mk{font-size:var(--fs-label);letter-spacing:.12em;text-transform:uppercase;color:var(--c-deep-accent)}
+.metric .mv{font-family:var(--ff-display);font-size:2.75rem;line-height:1;color:rgba(255,255,255,.34);margin:var(--sp-3) 0}
+.metric .mn{font-size:var(--fs-small);color:rgba(255,255,255,.66);line-height:1.45}
+.report-note{margin-top:var(--sp-5);font-size:var(--fs-small);color:rgba(255,255,255,.6)}
+
+/* ---------- команда ---------- */
+.team{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-9);max-width:900px;margin:0 auto}
+.tm{text-align:center}
+.tm .ph{max-width:300px;margin:0 auto var(--sp-5)}
+.tm .role{font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;color:var(--c-accent);font-weight:600}
+.tm h3{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h3);margin:var(--sp-2) 0 var(--sp-3)}
+.tm p{font-size:var(--fs-small);color:var(--c-ink-soft);line-height:1.55;max-width:38ch;margin:0 auto}
+
+/* ---------- анкета ---------- */
+.form-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:var(--sp-10);align-items:start}
+.form-intro h2{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h2);line-height:1.18;margin-top:var(--sp-3)}
+.form-intro p{color:var(--c-ink-soft);margin-top:var(--sp-5);max-width:44ch}
+.form-facts{margin-top:var(--sp-7)}
+.form-facts li{display:flex;justify-content:space-between;gap:var(--sp-5);padding:var(--sp-4) 0;border-bottom:1px solid var(--c-line);font-size:var(--fs-small)}
+.form-facts .fv{color:var(--c-ink-soft)}
+
+.card{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--r-lg);padding:var(--sp-8);box-shadow:0 18px 44px rgba(20,52,59,.10)}
+.prog{display:flex;gap:5px;margin-bottom:var(--sp-4)}
+.prog i{height:4px;flex:1;background:var(--c-line);border-radius:999px}
+.prog i.on{background:var(--c-accent)}
+.card h3{font-family:var(--ff-display);font-weight:500;font-size:var(--fs-h3);margin:var(--sp-3) 0 var(--sp-6)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5)}
+.f{display:flex;flex-direction:column;gap:var(--sp-2)}
+.f.full{grid-column:1/-1}
+.f label{font-size:var(--fs-label);letter-spacing:.12em;text-transform:uppercase;color:var(--c-ink-soft);font-weight:600}
+.f input,.f select,.f textarea{
+  font-family:var(--ff-text);font-size:var(--fs-body);color:var(--c-ink);background:var(--c-bg);
+  border:1px solid var(--c-line-strong);border-radius:var(--r-sm);height:var(--ctrl-h);padding:0 var(--sp-4);width:100%;
+  transition:border-color var(--dur) var(--ease);
+}
+.f textarea{height:auto;min-height:104px;padding:var(--sp-4);resize:vertical;line-height:1.5}
+.f input::placeholder,.f textarea::placeholder{color:var(--c-ink-faint)}
+.f input:hover,.f select:hover,.f textarea:hover{border-color:var(--c-ink-faint)}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--c-accent);outline:2px solid var(--c-focus);outline-offset:2px}
+.f .hint{font-size:var(--fs-small);color:var(--c-ink-faint)}
+.card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-5);margin-top:var(--sp-7);padding-top:var(--sp-6);border-top:1px solid var(--c-line)}
+.card-foot p{font-size:var(--fs-small);color:var(--c-ink-faint);max-width:32ch}
+
+/* ---------- футер ---------- */
+.foot{background:var(--c-deep);color:var(--c-deep-ink);padding:var(--sp-9) 0 var(--sp-7)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--sp-8)}
+.foot h4{font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;color:var(--c-deep-accent);margin-bottom:var(--sp-4);font-weight:600}
+.foot li{margin-bottom:var(--sp-3);font-size:var(--fs-small);color:rgba(255,255,255,.72)}
+.foot a:hover{color:var(--c-deep-accent)}
+.foot-brand svg{height:44px;width:auto}
+.foot-brand p{margin-top:var(--sp-4);font-size:var(--fs-small);color:rgba(255,255,255,.72);max-width:34ch}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--sp-4);margin-top:var(--sp-9);padding-top:var(--sp-5);border-top:1px solid rgba(255,255,255,.16);font-size:var(--fs-small);color:rgba(255,255,255,.55)}
+
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:var(--sp-5);top:var(--sp-5);z-index:99;background:var(--c-accent);color:var(--c-accent-ink);padding:var(--sp-3) var(--sp-5)}
+
+/* ---------- переключатель палитры (демо-контрол, не часть страницы) ---------- */
+.pal-switch{
+  position:fixed;right:16px;bottom:16px;z-index:80;display:flex;align-items:center;gap:6px;
+  background:var(--c-surface);border:1px solid var(--c-line);border-radius:999px;
+  padding:6px 8px 6px 16px;box-shadow:0 8px 28px rgba(0,0,0,.16);
+}
+.pal-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-ink-faint);margin-right:2px}
+.pal-switch button{
+  font-family:inherit;font-size:12px;line-height:1;min-height:36px;padding:0 14px;border-radius:999px;
+  cursor:pointer;border:1px solid var(--c-line);background:transparent;color:var(--c-ink-soft);
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+.pal-switch button[aria-pressed="true"]{background:var(--c-accent);color:var(--c-accent-ink);border-color:var(--c-accent)}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1080px){
+  .hero-grid{grid-template-columns:1fr;gap:var(--sp-10)}
+  .arcade{grid-template-columns:repeat(3,1fr);gap:var(--sp-6)}
+  .groups{grid-template-columns:1fr}
+  .group.wide .items{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(3,1fr);row-gap:var(--sp-8)}
+  .why{grid-template-columns:1fr;gap:var(--sp-6)}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .metric:nth-child(3n){border-right:1px solid rgba(255,255,255,.16)}
+  .metric:nth-child(2n){border-right:0}
+  .form-grid{grid-template-columns:1fr;gap:var(--sp-8)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:var(--sp-7)}
+}
+@media (max-width:720px){
+  :root{--pad-x:20px}
+  .top-in{height:72px}
+  .brand svg{height:38px}
+  .nav{display:none}
+  .sec{padding:var(--sp-9) 0}
+  .hero{padding:var(--sp-8) 0 var(--sp-9)}
+  .arcade{grid-template-columns:1fr;gap:var(--sp-7)}
+  .arc .ph{max-width:280px;margin-left:auto;margin-right:auto}
+  .items,.group.wide .items{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;row-gap:var(--sp-7)}
+  .metrics{grid-template-columns:1fr}
+  .metric{border-right:0!important;border-bottom:1px solid rgba(255,255,255,.16)!important}
+  .metric:last-child{border-bottom:0!important}
+  .team{grid-template-columns:1fr;gap:var(--sp-8)}
+  .fields{grid-template-columns:1fr}
+  .card,.notfit,.group{padding:var(--sp-5)}
+  .foot-grid{grid-template-columns:1fr;gap:var(--sp-6)}
+  .btn{width:100%}
+  .pal-switch{left:12px;right:12px;bottom:12px;justify-content:center;padding:8px}
+  .tbl,.tbl thead,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--c-line-strong);padding:var(--sp-5) 0}
+  .tbl tr:last-child{border-bottom:0}
+  .tbl td{border-bottom:0;padding:var(--sp-2) var(--sp-5)}
+  .tbl td:first-child{width:auto;padding-top:0}
+  .tbl td[data-l]::before{content:attr(data-l);display:block;font-size:var(--fs-label);letter-spacing:.12em;text-transform:uppercase;color:var(--c-ink-faint);margin-bottom:2px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#" aria-label="AlKô — на главную">
+      <svg viewBox="0 0 210 56" role="img" aria-label="AlKô">
+        <text x="2" y="44" fill="var(--c-ink)" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing"
+              font-family="'Lora',Georgia,serif">AlKo</text>
+        <path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="var(--c-accent)" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M59 13 h-4 M87 13 h4" stroke="var(--c-accent)" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#who">Объекты</a>
+      <a href="#services">Услуги</a>
+      <a href="#how">Как работаем</a>
+      <a href="#models">Модели</a>
+      <a class="btn btn-primary btn-sm" href="#form">Анкета объекта</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= ГЕРОЙ ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="label">Управляющая компания для Ôтелей</p>
+        <h1>Гостеприимство юга —<br><em>управление уровня оператора</em></h1>
+        <p class="hero-lead">AlKô принимает в управление отели, гостевые дома, апарт-отели и санатории на 20–300 номеров. Тепло к гостю остаётся вашим, а загрузка, тариф, персонал и отчётность становятся нашей ответственностью.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#form">Заполнить анкету объекта</a>
+          <a class="btn btn-secondary" href="#form">Обсудить объект</a>
+        </div>
+        <p class="hero-note">30 вопросов, 8 блоков, около 15 минут. Ни к чему не обязывает — на те же вопросы можно ответить голосом.</p>
+      </div>
+      <div class="hero-art">
+        <div class="ph arch r34" data-cap="фото объекта">
+          <img src="https://picsum.photos/id/218/900/1200" alt="Арочная терраса отеля у моря">
+        </div>
+        <span class="hero-badge">Первые объекты — 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ДЛЯ КОГО ================= -->
+<section class="sec sec-alt" id="who">
+  <div class="wrap">
+    <div class="sec-head center" style="text-align:center">
+      <p class="label">Объекты</p>
+      <h2>Кого мы берём в управление</h2>
+      <p class="sub">Мы работаем там, где управляющая компания способна изменить результат уже в этом сезоне, — и где собственник готов к прозрачности по деньгам.</p>
+    </div>
+
+    <div class="arcade">
+      <div class="arc">
+        <div class="ph arch r34" data-cap="объект"><img src="https://picsum.photos/id/1040/520/700" alt="Отель"></div>
+        <h3>Отель</h3><p>Городской или курортный, с действующей командой.</p><span class="m">20–300 номеров</span>
+      </div>
+      <div class="arc">
+        <div class="ph arch r34" data-cap="объект"><img src="https://picsum.photos/id/164/520/700" alt="Гостевой дом"></div>
+        <h3>Гостевой дом</h3><p>Семейное управление, где всё держится на владельце.</p><span class="m">от 20 номеров</span>
+      </div>
+      <div class="arc">
+        <div class="ph arch r34" data-cap="объект"><img src="https://picsum.photos/id/1029/520/700" alt="Апарт-отель"></div>
+        <h3>Апарт-отель</h3><p>В том числе с множественными собственниками.</p><span class="m">юниты в фонде</span>
+      </div>
+      <div class="arc">
+        <div class="ph arch r34" data-cap="объект"><img src="https://picsum.photos/id/1039/520/700" alt="Санаторий"></div>
+        <h3>Санаторий</h3><p>Лечебная база, длинное проживание, своя сезонность.</p><span class="m">медицинский профиль</span>
+      </div>
+      <div class="arc">
+        <div class="ph arch r34" data-cap="объект"><img src="https://picsum.photos/id/315/520/700" alt="Объект после стройки"></div>
+        <h3>После стройки</h3><p>Преопенинг: штат, PMS, каналы продаж, стандарты, запуск.</p><span class="m">старт с нуля</span>
+      </div>
+    </div>
+
+    <div class="notfit">
+      <h3>Когда мы честно откажемся</h3>
+      <ul>
+        <li>управляющей компании не передаются операционные решения — только исполнение чужих;</li>
+        <li>финансы объекта закрыты от УК: без цифр управление превращается в советы со стороны;</li>
+        <li>ожидается рост дохода без вложений в номерной фонд там, где они объективно необходимы.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= УСЛУГИ ================= -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Услуги</p>
+      <h2>Шестнадцать работ, собранных в пять зон ответственности</h2>
+      <p class="sub">Можно передать весь контур, можно — одну зону. Границы фиксируются в договоре, чтобы не осталось участков, за которые не отвечает никто.</p>
+    </div>
+
+    <div class="groups">
+      <div class="group">
+        <h3>Операционное управление</h3>
+        <div class="items">
+          <div class="item"><span class="n">01</span><div><h4>Управление объектом</h4><p>Единая точка ответственности за ежедневную работу и результат месяца.</p></div></div>
+          <div class="item"><span class="n">02</span><div><h4>Стандарты отделов</h4><p>Письменные регламенты вместо «как привыкли».</p></div></div>
+          <div class="item"><span class="n">03</span><div><h4>Номерной фонд</h4><p>Состояние, план обновления, очередность трат.</p></div></div>
+          <div class="item"><span class="n">04</span><div><h4>Инвентаризация</h4><p>Что на объекте есть в действительности.</p></div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Доход и продажи</h3>
+        <div class="items">
+          <div class="item"><span class="n">05</span><div><h4>Каналы продаж и OTA</h4><p>Качество карточек, баланс площадок и прямых продаж.</p></div></div>
+          <div class="item"><span class="n">06</span><div><h4>Revenue Management</h4><p>Тариф, ограничения, календарь спроса.</p></div></div>
+          <div class="item"><span class="n">07</span><div><h4>KPI отделов</h4><p>Цифры, за которые отвечает каждый руководитель.</p></div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Финансы и закупки</h3>
+        <div class="items">
+          <div class="item"><span class="n">08</span><div><h4>Финансы и отчётность</h4><p>Ежемесячный отчёт по единой форме.</p></div></div>
+          <div class="item"><span class="n">09</span><div><h4>Закупки</h4><p>Себестоимость, поставщики, контроль расхода.</p></div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Персонал</h3>
+        <div class="items">
+          <div class="item"><span class="n">10</span><div><h4>Подбор персонала</h4><p>От горничной до управляющего, с расчётом на сезон.</p></div></div>
+          <div class="item"><span class="n">11</span><div><h4>Обучение и аттестация</h4><p>Стандарты сервиса и проверка их на смене.</p></div></div>
+          <div class="item"><span class="n">12</span><div><h4>Менторство собственника</h4><p>Разбор решений, если управляете лично.</p></div></div>
+        </div>
+      </div>
+
+      <div class="group wide">
+        <h3>Соответствие требованиям</h3>
+        <div class="items">
+          <div class="item"><span class="n">13</span><div><h4>Классификация</h4><p>Подготовка к звёздности и сопровождение процедуры.</p></div></div>
+          <div class="item"><span class="n">14</span><div><h4>Самооценка объекта</h4><p>Оформление по действующим требованиям.</p></div></div>
+          <div class="item"><span class="n">15</span><div><h4>Паспорт безопасности</h4><p>Подготовка документа и приведение объекта в соответствие.</p></div></div>
+          <div class="item"><span class="n">16</span><div><h4>Соглашение с УВМ</h4><p>Приём иностранных гостей по правилам.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= КАК РАБОТАЕМ (глубокий фон) ================= -->
+<section class="sec sec-deep on-deep" id="how">
+  <div class="wrap">
+    <div class="sec-head center" style="text-align:center">
+      <p class="label">Как мы работаем</p>
+      <h2>Путь от анкеты до передачи управления</h2>
+      <p class="sub">Пять шагов с понятными сроками. До договора собственник не несёт затрат — только время, объём которого известен заранее.</p>
+    </div>
+
+    <ol class="steps">
+      <li class="stp"><div class="med">I</div><h3>Анкета</h3><p>30 вопросов в восьми блоках — об объекте, операционке, продажах, финансах и ожиданиях.</p><span class="t">~15 минут</span></li>
+      <li class="stp"><div class="med">II</div><h3>Разговор</h3><p>Уточняем то, что не помещается в анкету: историю объекта и реальные ограничения.</p><span class="t">40 минут</span></li>
+      <li class="stp"><div class="med">III</div><h3>Аудит</h3><p>Смотрим номерной фонд, процессы и цифры своими глазами, на объекте.</p><span class="t">1–2 дня</span></li>
+      <li class="stp"><div class="med">IV</div><h3>Предложение</h3><p>Модель работы, зоны ответственности и план на первые 90 дней.</p><span class="t">до 7 дней</span></li>
+      <li class="stp"><div class="med">V</div><h3>Передача</h3><p>Договор, приём дел, запуск отчётности с первого полного месяца.</p><span class="t">по договорённости</span></li>
+    </ol>
+
+    <div class="report">
+      <div class="report-head">
+        <p class="label">Структура ежемесячного отчёта собственнику</p>
+        <p class="label">Ежемесячно</p>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="mk">Загрузка</div><div class="mv">—</div><div class="mn">Факт месяца, план и тот же месяц год назад</div></div>
+        <div class="metric"><div class="mk">ADR</div><div class="mv">—</div><div class="mn">Средний тариф по категориям и каналам</div></div>
+        <div class="metric"><div class="mk">RevPAR</div><div class="mv">—</div><div class="mn">Доход на доступный номер</div></div>
+        <div class="metric"><div class="mk">GOP</div><div class="mv">—</div><div class="mn">Валовая операционная прибыль и её структура</div></div>
+        <div class="metric"><div class="mk">Отклонение от плана</div><div class="mv">—</div><div class="mn">Где разошлось с бюджетом и что делаем</div></div>
+        <div class="metric"><div class="mk">Оценка гостей</div><div class="mv">—</div><div class="mn">Рейтинги площадок и разбор негатива по причинам</div></div>
+      </div>
+    </div>
+    <p class="report-note">Значений пока нет намеренно: первые объекты AlKô принимаем в 2026 году. Показывать здесь цифры чужих проектов мы считаем недопустимым.</p>
+  </div>
+</section>
+
+<!-- ================= МОДЕЛИ ================= -->
+<section class="sec" id="models">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Модели</p>
+      <h2>Три модели сотрудничества</h2>
+      <p class="sub">Разница не в объёме работ, а в том, кто принимает операционные решения и перед кем отвечает за итоговую цифру.</p>
+    </div>
+
+    <table class="tbl">
+      <thead>
+        <tr><th>Модель</th><th>Что берём на себя</th><th>Операционные решения</th><th>Отчётность</th><th>Кому подходит</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Полное управление</td>
+          <td data-l="Что берём">Операционка, продажи и тариф, персонал, финансы, соответствие требованиям</td>
+          <td data-l="Решения">AlKô, с назначенным управляющим на объекте</td>
+          <td data-l="Отчётность">Ежемесячный отчёт по единой форме и оперативная сводка</td>
+          <td data-l="Кому">Собственнику, выходящему из ежедневного управления</td>
+        </tr>
+        <tr>
+          <td>Отдельные функции</td>
+          <td data-l="Что берём">Один–два блока: например продажи и Revenue Management</td>
+          <td data-l="Решения">Ваш управляющий; AlKô — в границах своего блока</td>
+          <td data-l="Отчётность">Отчёт по переданному блоку</td>
+          <td data-l="Кому">Когда команда есть, но проседает направление</td>
+        </tr>
+        <tr>
+          <td>Сопровождение и менторство</td>
+          <td data-l="Что берём">Постановка процессов, стандарты, обучение команды, разбор решений</td>
+          <td data-l="Решения">Собственник</td>
+          <td data-l="Отчётность">Регулярные разборы и письменные рекомендации</td>
+          <td data-l="Кому">Тем, кто управляет лично и хочет усилиться</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="tbl-note">Вознаграждение — процент от прибыли или процент от оборота. Модель и ставка определяются после аудита объекта: назвать цифру до выезда значило бы её выдумать.</p>
+  </div>
+</section>
+
+<!-- ================= ПОЧЕМУ ================= -->
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head center" style="text-align:center">
+      <p class="label">Почему AlKô</p>
+      <h2>Что можно проверить на первом же разговоре</h2>
+      <p class="sub">Компания новая, и мы не выдаём чужие достижения за свои. Зато вот что стоит за словом «управление».</p>
+    </div>
+
+    <div class="orn" aria-hidden="true" style="margin-bottom:var(--sp-8)">
+      <svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="16"/><rect x="4" y="4" width="16" height="16" transform="rotate(45 12 12)"/></g></svg>
+    </div>
+
+    <div class="groups">
+      <div class="group">
+        <h3>Операционка и ИТ — сооснователи</h3>
+        <p style="color:var(--c-ink-soft);font-size:var(--fs-small)">Управляющая компания обычно покупает ИТ на стороне, а ИТ-компания не понимает, как объект живёт в пик сезона. Здесь оба направления внутри и отвечают за один результат.</p>
+      </div>
+      <div class="group">
+        <h3>Автоматизация и AI-консьерж</h3>
+        <p style="color:var(--c-ink-soft);font-size:var(--fs-small)">Гость получает ответ в мессенджере круглосуточно, ресепшен не тонет в однотипных вопросах, заявки не теряются в личных переписках, а отчётность собирается системой.</p>
+      </div>
+      <div class="group wide">
+        <h3>Форма отчёта закреплена в договоре</h3>
+        <p style="color:var(--c-ink-soft);font-size:var(--fs-small)">Состав отчёта не меняется от месяца к месяцу — иначе сравнивать нечего. Собственник видит одни и те же метрики, включая те, что показывают наши собственные ошибки.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= КОМАНДА ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center" style="text-align:center">
+      <p class="label">Команда</p>
+      <h2>Кто управляет</h2>
+      <p class="sub">Двое сооснователей с разными профессиями и общей ответственностью за результат объекта.</p>
+    </div>
+
+    <div class="team">
+      <div class="tm">
+        <div class="ph arch r34 ph-person" data-cap="фото — после съёмки"><span class="mark" aria-hidden="true">ô</span></div>
+        <p class="role">Сооснователь</p>
+        <h3>Отельер-практик</h3>
+        <p>Операционное управление, стандарты отделов, номерной фонд и инвентаризация, финансы и отчётность, закупки и KPI, классификация и безопасность, подбор и обучение персонала.</p>
+      </div>
+      <div class="tm">
+        <div class="ph arch r34 ph-person" data-cap="фото — после съёмки"><span class="mark" aria-hidden="true">ô</span></div>
+        <p class="role">Сооснователь</p>
+        <h3>Автоматизация и маркетинг</h3>
+        <p>CRM и интеграции, AI-консьерж для гостей, каналы продаж и работа с OTA, маркетинг объекта и репутация, обучение команды работе в системах.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= АНКЕТА ================= -->
+<section class="sec sec-alt" id="form">
+  <div class="wrap">
+    <div class="form-grid">
+      <div class="form-intro">
+        <p class="label">Первый шаг</p>
+        <h2>Анкета объекта</h2>
+        <p>Она нужна не для сбора контакта. Из ответов складывается предварительная картина объекта — и разговор начинается сразу с сути.</p>
+        <ul class="form-facts">
+          <li><span>Вопросов</span><span class="fv">30 в восьми блоках</span></li>
+          <li><span>Времени</span><span class="fv">около 15 минут</span></li>
+          <li><span>Обязательства</span><span class="fv">никаких</span></li>
+          <li><span>Альтернатива</span><span class="fv">ответить голосом</span></li>
+        </ul>
+      </div>
+
+      <form class="card" onsubmit="return false">
+        <div class="prog" role="img" aria-label="Шаг 1 из 8">
+          <i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <p class="label">Шаг 1 из 8 · Об объекте</p>
+        <h3>Расскажите, чем мы будем управлять</h3>
+
+        <div class="fields">
+          <div class="f">
+            <label for="c-type">Тип объекта</label>
+            <select id="c-type" name="type">
+              <option>Отель или гостиница</option><option>Гостевой дом</option>
+              <option>Апарт-отель</option><option>Санаторий</option><option>Другое</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="c-city">Город или регион</label>
+            <input id="c-city" name="city" type="text" placeholder="Например, Дербент">
+          </div>
+          <div class="f">
+            <label for="c-rooms">Номерной фонд</label>
+            <input id="c-rooms" name="rooms" type="number" min="1" placeholder="Номеров или юнитов">
+            <span class="hint">Достаточно примерного числа</span>
+          </div>
+          <div class="f">
+            <label for="c-stars">Звёздность</label>
+            <select id="c-stars" name="stars">
+              <option>Нет классификации</option><option>2 звезды</option><option>3 звезды</option>
+              <option>4 звезды</option><option>5 звёзд</option><option>В процессе получения</option>
+            </select>
+          </div>
+          <div class="f full">
+            <label for="c-year">Год открытия и последнего ремонта</label>
+            <input id="c-year" name="year" type="text" placeholder="Например: открыт в 2014, ремонт в 2021">
+          </div>
+          <div class="f full">
+            <label for="c-focus">Что требует внимания в первую очередь</label>
+            <textarea id="c-focus" name="focus" placeholder="Номера, персонал, загрузка, отчётность — что беспокоит больше всего"></textarea>
+            <span class="hint">Здесь важнее честность, чем формулировки</span>
+          </div>
+        </div>
+
+        <div class="card-foot">
+          <button class="btn btn-primary" type="submit">Продолжить — шаг 2</button>
+          <p>Или разберём те же вопросы голосом.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot on-deep">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <svg viewBox="0 0 210 56" role="img" aria-label="AlKô">
+          <text x="2" y="44" fill="var(--c-deep-ink)" font-size="38" font-weight="500" textLength="82" lengthAdjust="spacing"
+                font-family="'Lora',Georgia,serif">AlKo</text>
+          <path d="M59 13 A14 14 0 0 1 87 13" fill="none" stroke="var(--c-deep-accent)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M59 13 h-4 M87 13 h4" stroke="var(--c-deep-accent)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <p>Управляющая компания для отелей, гостевых домов, апарт-отелей и санаториев. Первые объекты — 2026.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#who">Объекты</a></li><li><a href="#services">Услуги</a></li>
+          <li><a href="#how">Как работаем</a></li><li><a href="#models">Модели</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Связаться</h4>
+        <ul>
+          <li><a href="#form">Заполнить анкету</a></li><li><a href="#form">Обсудить объект</a></li>
+          <li>Телефон — по запросу</li><li>Почта — по запросу</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Документы</h4>
+        <ul><li>Политика обработки данных</li><li>Условия работы</li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 AlKô</span>
+      <span>Информация на сайте не является публичной офертой</span>
+    </div>
+  </div>
+</footer>
+
+<div class="pal-switch" role="group" aria-label="Палитра оформления">
+  <span class="pal-lbl">Палитра</span>
+  <button type="button" data-p="native">Наша</button>
+  <button type="button" data-p="beige">Беж</button>
+  <button type="button" data-p="green">Зелёный</button>
+  <button type="button" data-p="marsala">Марсала</button>
+</div>
+
+<script>
+(function(){
+  var d=document.documentElement;
+  var re=/p=(native|beige|green|marsala)/;
+  var m=re.exec(location.search)||re.exec(location.hash);
+  var btns=document.querySelectorAll('.pal-switch button');
+  function set(p){
+    d.setAttribute('data-palette',p);
+    for(var i=0;i<btns.length;i++){btns[i].setAttribute('aria-pressed',btns[i].getAttribute('data-p')===p?'true':'false');}
+  }
+  for(var i=0;i<btns.length;i++){
+    (function(b){b.addEventListener('click',function(){set(b.getAttribute('data-p'));});})(btns[i]);
+  }
+  set(m?m[1]:'native');
+})();
+</script>
+</body>
+</html>

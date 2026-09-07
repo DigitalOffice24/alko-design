@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 132" width="360" height="132" role="img" aria-label="AlKô — управляющая компания для отелей">
+  <title>AlKô · направление B «Пульт»</title>
+  <desc>Знак-шрифтовой. Циркумфлекс — геометрический шеврон-индикатор: крыша как элемент приборной панели.</desc>
+
+  <rect width="360" height="132" fill="#0B0D0F"/>
+
+  <g stroke="#252B30" stroke-width="1">
+    <path d="M20 110 H196"/>
+    <path d="M20 110 v6 M64 110 v4 M108 110 v4 M152 110 v4 M196 110 v6"/>
+  </g>
+
+  <text x="20" y="92" fill="#EDF0F2" font-size="62" font-weight="500" textLength="132" lengthAdjust="spacing"
+        font-family="'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif">AlKo</text>
+
+  <path d="M117 40 L135 26 L153 40" fill="none" stroke="#E8B04B" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter"/>
+  <rect x="168" y="32" width="8" height="8" fill="#E8B04B"/>
+
+  <text x="21" y="126" fill="#98A2A9" font-family="'IBM Plex Mono', 'SF Mono', Consolas, monospace"
+        font-size="10.5" letter-spacing="2.2">HOTEL MANAGEMENT / 2026</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 132" width="360" height="132" role="img" aria-label="AlKô — управляющая компания для отелей">
+  <title>AlKô · направление A «Издание»</title>
+  <desc>Знак-шрифтовой. Циркумфлекс над «o» вытянут в тонкий карниз — крыша над словом, «объект под управлением».</desc>
+
+  <text x="8" y="100" fill="#1B1815" font-size="82" font-weight="400" textLength="176" lengthAdjust="spacing"
+        font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif">AlKo</text>
+
+  <!-- карниз: волосяная линия через слово + шеврон точно над «o» -->
+  <g stroke="#7A5C2E" fill="none" stroke-width="1.5" stroke-linecap="square">
+    <path d="M8 26 H137"/>
+    <path d="M137 26 L157 12 L177 26"/>
+    <path d="M177 26 H215" opacity="0.4"/>
+  </g>
+
+  <text x="9" y="126" fill="#5A544B" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="11" letter-spacing="3.6" font-weight="500">УПРАВЛЯЮЩАЯ КОМПАНИЯ</text>
+</svg>

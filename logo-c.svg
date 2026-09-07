@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 132" width="360" height="132" role="img" aria-label="AlKô — управляющая компания для отелей">
+  <title>AlKô · направление C «Берег»</title>
+  <desc>Знак-шрифтовой. Циркумфлекс раскрыт в полукруглую арку — южная аркада, купол, «крыша над головой».</desc>
+
+  <text x="10" y="98" fill="#14343B" font-size="70" font-weight="500" textLength="152" lengthAdjust="spacing"
+        font-family="'Lora', Georgia, 'Times New Roman', serif">AlKo</text>
+
+  <!-- арка-купол над «o» -->
+  <path d="M109 42 A26 26 0 0 1 161 42" fill="none" stroke="#C2603A" stroke-width="4" stroke-linecap="round"/>
+  <path d="M109 42 h-7 M161 42 h7" stroke="#C2603A" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- восьмиконечная звезда — орнамент только в детали -->
+  <g fill="none" stroke="#D9A441" stroke-width="1.6">
+    <rect x="178" y="28" width="19" height="19"/>
+    <rect x="178" y="28" width="19" height="19" transform="rotate(45 187.5 37.5)"/>
+  </g>
+
+  <text x="11" y="126" fill="#4A6167" font-family="'Golos Text', 'Helvetica Neue', Arial, sans-serif"
+        font-size="11" letter-spacing="3.2" font-weight="500">УК ДЛЯ ÔТЕЛЕЙ ЮГА</text>
+</svg>
